@@ -6,10 +6,10 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService],
+      providers: [UsersService],
     }).compile();
 
-    service = module.get<UserService>(UserService);
+    service = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
