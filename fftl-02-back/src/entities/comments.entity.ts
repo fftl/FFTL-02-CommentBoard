@@ -1,15 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Board } from "./board.entity";
+import { User } from "./user.entity";
 
 @Entity()
 export class Comment{
     @PrimaryGeneratedColumn()
     cid: number;
-
-    @Column()
-    uid: number;
-
-    @Column()
-    bid: number;
 
     @Column()
     nickname: string;
@@ -19,4 +15,16 @@ export class Comment{
 
     @Column()
     cregdate: string; 
+
+    @ManyToOne(
+        (type) => User,
+        (user) => user.comments,
+    )
+    user: User;
+
+    @ManyToOne(
+        (type) => Board,
+        (board) => board.comments,
+    )
+    board: Board;
 }
