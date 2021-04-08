@@ -9,8 +9,8 @@ import {
   forwardRef,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserService } from './user.service';
 
@@ -33,7 +33,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/profile')
+  @Get('profile')
   getProfile(@Request() req) {
     return req.user;
   }
