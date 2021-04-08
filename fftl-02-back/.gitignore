@@ -35,3 +35,4 @@ lerna-debug.log*
 
 # MY INFOS
 ormconfig.json
+/src/auth/constants.ts

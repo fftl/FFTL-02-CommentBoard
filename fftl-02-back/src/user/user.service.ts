@@ -6,17 +6,17 @@ import { SaveUserDto } from './dto/saveUser.dto';
 
 @Injectable()
 export class UserService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
 
-    constructor(
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>
-    ){}
+  async saveUser(saveUserDto: SaveUserDto) {
+    return await this.userRepository.save(saveUserDto);
+  }
 
-    async saveUser(saveUserDto: SaveUserDto){
-        return await this.userRepository.save(saveUserDto);
-    }
-
-    async findOne(username : string): Promise<User>{ //User 또는 undefined 를 반환해줍니다.
-        return this.userRepository.findOne({ username:username });
-    }
+  async findOne(username: string): Promise<User> {
+    //User 또는 undefined 를 반환해줍니다.
+    return this.userRepository.findOne({ username: username });
+  }
 }
