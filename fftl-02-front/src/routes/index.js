@@ -3,6 +3,7 @@ import List from '@/components/board/List'; //게시판 리스트 컴포넌트 �
 import Write from '@/components/board/Write'; //게시판 리스트 컴포넌트 호출
 import View from '@/components/board/View'; //게시판 리스트 컴포넌트 호출
 import Join from '@/components/user/Join';
+import Login from '@/components/user/Login';
 
 const routerHistory = createWebHistory()
 
@@ -28,6 +29,10 @@ const router = createRouter(({
 		{
 			path:'/user/join'
 			,component:Join
+		},
+		{
+			path:'/user/login'
+			,component:Login
 		}
 	]
 }))

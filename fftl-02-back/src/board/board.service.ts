@@ -12,6 +12,6 @@ export class BoardService {
   ) {}
 
   async saveBoard(saveBoardDto: SaveBoardDto) {
-    return await this.boardRepository.save(saveBoardDto);
+    return this.boardRepository.save(saveBoardDto);
   }
 }

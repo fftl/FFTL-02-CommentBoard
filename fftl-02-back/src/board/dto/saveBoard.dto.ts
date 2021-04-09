@@ -6,6 +6,7 @@ export class SaveBoardDto {
   readonly title: string;
   readonly bregdate: string;
   readonly nickname: string;
+  readonly content: string;
   readonly user: User;
   readonly comments: Comment[];
 }
