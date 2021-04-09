@@ -13,6 +13,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserService } from './user.service';
+import * as bcrypt from 'bcrypt'; //bcrypt 사용시 추가
 
 @Controller('user')
 export class UserController {
@@ -23,6 +24,8 @@ export class UserController {
 
   @Post('/saveUser')
   async saveUser(@Body() saveUserDto: SaveUserDto) {
+    //bcrypt 적용
+    saveUserDto.password = await bcrypt.hash(saveUserDto.password, 10);
     return this.useService.saveUser(saveUserDto);
   }
 
