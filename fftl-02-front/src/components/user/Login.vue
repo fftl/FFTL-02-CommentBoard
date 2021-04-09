@@ -19,6 +19,9 @@ export default {
             password:"",
         }
     },
+    mounted(){
+      console.log(this.$store.state.token);
+    },
     methods: {
         back(){
             this.$router.push({ path: "./list" });
@@ -31,6 +34,10 @@ export default {
             this.$http.post("http://localhost:3000/user/login",this.form)
             .then((res) => {
                 console.log(res);
+                if(res.status == 201){
+                  this.$store.state.token = res.data.access_token;
+                }
+                console.log(this.$store.state.token);
             })
             .catch((err) => {
                 console.log(err);

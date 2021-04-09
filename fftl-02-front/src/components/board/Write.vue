@@ -69,6 +69,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.$store.state.token);
     if (this.boardId) {
       console.log("fnGetView run!!");
       this.fnGetView();
