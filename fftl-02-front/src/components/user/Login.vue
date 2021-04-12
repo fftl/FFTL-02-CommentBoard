@@ -35,7 +35,8 @@ export default {
             .then((res) => {
                 console.log(res);
                 if(res.status == 201){
-                  this.$store.state.token = res.data.access_token;
+                  //
+                  this.$store.commit('setToken', res.data.access_token);
                 }
                 console.log(this.$store.state.token);
             })

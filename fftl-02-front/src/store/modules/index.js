@@ -9,4 +9,10 @@ export default createStore({
     state:{
         token:""
     },
+    mutations: {
+        //setToken 을 이용해서 state의 값을 할당 해줍니다.
+        setToken(state, value) {
+            state.token = value;
+        }
+    }
 })

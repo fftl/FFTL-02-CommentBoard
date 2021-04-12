@@ -7,5 +7,5 @@ import store from "./store/modules"; //vuex store 호출
 const app = createApp(App)
 app.use(router)
 app.use(vAxios)
-app.mount('#app')
 app.use(store)
+app.mount('#app')

@@ -18,7 +18,8 @@ export default {
         }
     },
     mounted(){
-        this.getList()
+        this.getList();
+        console.log(this.$store.state.token);
     }
     ,methods: {
         getList(){
