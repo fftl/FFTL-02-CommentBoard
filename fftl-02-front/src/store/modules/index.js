@@ -7,12 +7,20 @@ export default createStore({
         createPersistedState()
     ],
     state:{
-        token:""
+        token:"",
+        nickname:"",
+        uid:"",
     },
     mutations: {
         //setToken 을 이용해서 state의 값을 할당 해줍니다.
         setToken(state, value) {
             state.token = value;
+        },
+        setNickname(state, value){
+            state.nickname = value;
+        },
+        setUid(state, value){
+            state.uid = value;
         }
     }
 })

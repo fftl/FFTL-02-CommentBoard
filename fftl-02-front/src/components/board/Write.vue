@@ -15,7 +15,7 @@
           </tr>
           <tr>
             <th>작성자</th>
-            <td><input type="text" v-model="writer" ref="writer" /></td>
+            <td><input type="text" v-model="writer" ref="nickname" /></td>
           </tr>
           <tr>
             <th>내용</th>
@@ -58,22 +58,14 @@ let regdate = year + "-" + month + "-" + date;
 
 export default {
   data() {
-    //변수 생성
     return {
-      boardId: this.$route.query.boardId,
       title: "",
-      writer: "",
+      nickname: "",
       content: "",
-      id: "admin",
-      form: "", //form 전송 데이터
+      form: "",
     };
   },
   mounted() {
-    console.log(this.$store.state.token);
-    if (this.boardId) {
-      console.log("fnGetView run!!");
-      this.fnGetView();
-    }
   },
   methods: {
     fnList() {

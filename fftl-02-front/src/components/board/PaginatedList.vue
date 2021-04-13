@@ -8,10 +8,10 @@
         <th>REGDATE</th>
       </tr>
       <tr v-for="p in paginatedData" :key="p.no">
-        <td>{{ p.id }}</td>
-        <td>{{ p.writer }}</td>
+        <td>{{ p.bid }}</td>
+        <td>{{ p.nickname }}</td>
         <td><a href="javascript:;" @click="fnView(`${p.id}`)">{{ p.title }}</a></td>
-        <td>{{ p.regdate }}</td>
+        <td>{{ p.bregdate }}</td>
       </tr>
     </table>
     <div class="btn-cover">

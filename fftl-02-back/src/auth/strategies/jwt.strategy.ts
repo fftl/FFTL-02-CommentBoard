@@ -13,7 +13,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+  //profile 시에 리턴해주는 값
   async validate(payload: any) {
-    return { userId: payload.sub, username: payload.username };
+    return { uid: payload.uid, username: payload.username, nickname: payload.nickname };
   }
 }

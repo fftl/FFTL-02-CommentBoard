@@ -20,30 +20,52 @@ export default {
         }
     },
     mounted(){
+      this.loginCheck();
     },
     methods: {
-        golist(){
+        loginCheck(){
+          if(this.$store.state.token == ""){
+            alert("잘못된 접근 입니다.");
+            this.$router.push({ path: "/" });
+          }
+        }
+        ,golist(){
             this.$router.push({ path: "/board/list" });
-        },
-        login(){
+        }
+        //로그인하여 토큰 정보를 store 에 담는다.
+        //uid 와 nickname도 사용하기 쉽게 담아보자.
+        ,login(){ 
             this.form = {
                 username: this.username,
                 password: this.password
             }
-            this.$http.post("http://localhost:3000/user/login",this.form)
+            this.$http.post("http://localhost:3000/user/login/",this.form)
             .then((res) => {
-                console.log(res);
                 if(res.status == 201){
                   this.$store.commit('setToken', res.data.access_token);
+                  this.myInfo();
                   this.golist();
                 }
                 console.log(this.$store.state.token);
             })
             .catch((err) => {
-                console.log(err);
+              alert(err);
             })
         }
-        
+        ,myInfo(){
+          this.$http.get("http://localhost:3000/user/profile/", { headers:{'Authorization' : 'Bearer ' + this.$store.state.token }} )
+          .then((res) => {
+            console.log(res);
+            if(res.status == 200){
+              this.$store.commit('setNickname', res.data.nickname);
+              this.$store.commit('setUid', res.data.uid);
+            }
+          })
+          .catch((err) =>{
+            alert(err);
+          })
+
+        }
     }
 }
 </script>

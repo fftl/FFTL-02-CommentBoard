@@ -2,7 +2,7 @@
   <div>
     <h1>회원 가입</h1>
     <div class="AddWrap">
-      <form class="join">
+      <form class="join" @submit="checkForm">
         <p>
           <span>아이디 : </span
           ><input type="text" v-model="username" ref="username" />
@@ -40,14 +40,21 @@ export default {
       form: "",
     };
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    back() {
+    checkForm(e) {
+      
+      if(this.username == "" || this.username == null){
+        this.errors.push("아이디를 입력해 주세요.");
+      }
+      e.preventDefault();
+
+    }
+    ,goHome() {
       //리스트 화면으로 이동 함수
       this.$router.push({ path: "/", query: this.body });
-    },
-    saveUser() {
+    }
+    ,saveUser() {
       this.form = {
         username: this.username,
         password: this.password,
@@ -58,8 +65,8 @@ export default {
         .post("http://localhost:3000/user/saveUser", this.form)
         .then((res) => {
           console.log(res);
-          alert("성공했습니다.");
-          this.back();
+          alert("회원가입에 성공했습니다.");
+          this.goHome();
         })
         .catch((err) => {
           alert(err);
