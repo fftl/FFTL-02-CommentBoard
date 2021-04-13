@@ -15,7 +15,7 @@
           </tr>
           <tr>
             <th>작성자</th>
-            <td><input type="text" v-model="writer" ref="nickname" /></td>
+            <td><input type="text" v-model="nickname" ref="nickname" readonly="readonly"/></td>
           </tr>
           <tr>
             <th>내용</th>
@@ -26,23 +26,12 @@
     </div>
 
     <div class="btnWrap">
-      <a href="javascript:;" @click="fnList" class="btn">목록</a>
+      <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a
-        v-if="!boardId"
         href="javascript:;"
-        @click="fnAddProc"
+        @click="addBoard"
         class="btnAdd btn"
         >등록</a
-      >
-      <a v-else href="javascript:;" @click="fnModProc" class="btnAdd btn"
-        >수정</a
-      >
-      <a
-        v-if="boardId"
-        href="javascript:;"
-        @click="fnDelProc"
-        class="btnAdd btn"
-        >삭제</a
       >
     </div>
   </div>
@@ -66,106 +55,53 @@ export default {
     };
   },
   mounted() {
+    this.nickname = this.$store.state.nickname;
+    console.log(this.$store.state.nickname);
+    console.log(this.$store.state.uid);
+    console.log(this.$store.state.token);
   },
   methods: {
-    fnList() {
+    goList() {
       //리스트 화면으로 이동 함수
-      this.$router.push({ path: "./list", query: this.body });
+      this.$router.push({ path: "/board/list" });
     },
-    fnGetView() {
-      this.$http
-        .get("http://localhost:3000/board/" + this.boardId, {
-          params: this.boardId,
-        })
-        .then((res) => {
-          this.title = res.data.title;
-          this.writer = res.data.writer;
-          this.content = res.data.content;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    fnAddProc() {
-      //등록 프로세스
+    addBoard() {
       if (!this.title) {
-        //제목이 없다면 값을 입력하라고 알려준다.
         alert("제목을 입력해 주세요");
         this.$refs.title.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
+      if (!this.content) {
+        alert("내용을 입력해 주세요");
+        this.$refs.content.focus(); //방식으로 선택자를 찾는다.
         return;
       }
 
       this.form = {
         //backend로 전송될 POST 데이터
         title: this.title,
-        writer: this.writer,
+        nickname: this.nickname,
         content: this.content,
-        regdate: regdate,
+        bregdate: regdate,
+        uid: this.$store.state.uid
       };
-
+      console.log(this.form);
       this.$http
-        .post("http://localhost:3000/board", this.form)
+        .post("http://localhost:3000/board/", this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
         .then((res) => {
           console.log(res);
           if (res.status == 201) {
             alert("등록되었습니다.");
-            this.fnList();
+            this.goList();
           } else {
-            alert("실행중 실패했습니다.\n다시 이용해 주세요");
+            alert("실행 중 실패했습니다.\n다시 이용해 주세요");
           }
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    fnModProc() {
-      if (!this.title) {
-        alert("제목을 입력해 주세요");
-        this.$refs.title.focus(); //방식으로 선택자를 찾는다.
-        return;
-      }
 
-      this.form = {
-        title: this.title,
-        writer: this.writer,
-        content: this.content,
-        regdate: regdate,
-      };
-
-      this.$http
-        .put("http://localhost:3000/board/" + this.boardId, this.form)
-        .then((res) => {
-          console.log(res);
-          if (res.status == 200) {
-            alert("수정되었습니다.");
-            this.fnList();
-          } else {
-            alert("실행중 실패했습니다.\n다시 이용해 주세요");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    fnDelProc() {
-      if (confirm("정말 삭제하시겠습니까?") == true) {
-        this.$http
-          .delete("http://localhost:3000/board/" + this.boardId)
-          .then((res) => {
-            if (res.status == 200) {
-              alert("삭제되었습니다.");
-              this.fnList();
-            } else {
-              alert("실행중 실패했습니다.\n다시 이용해 주세요");
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        return;
-      }
-    },
   },
 };
 </script>

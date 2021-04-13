@@ -20,16 +20,10 @@ export default {
         }
     },
     mounted(){
-      this.loginCheck();
+      
     },
     methods: {
-        loginCheck(){
-          if(this.$store.state.token == ""){
-            alert("잘못된 접근 입니다.");
-            this.$router.push({ path: "/" });
-          }
-        }
-        ,golist(){
+        golist(){
             this.$router.push({ path: "/board/list" });
         }
         //로그인하여 토큰 정보를 store 에 담는다.

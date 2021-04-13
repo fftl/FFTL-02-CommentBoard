@@ -19,11 +19,17 @@ export default {
         }
     },
     mounted(){
-        console.log("test");
+        this.loginCheck();
         this.getList();
     }
     ,methods: {
-        getList(){
+        loginCheck(){
+          if(this.$store.state.token == ""){
+            alert("잘못된 접근 입니다.");
+            this.$router.push({ path: "/" });
+          }
+        }
+        ,getList(){
             this.$http.get("http://127.0.0.1:3000/board/", { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
             .then((res)=>{
 				console.log(res.data);
