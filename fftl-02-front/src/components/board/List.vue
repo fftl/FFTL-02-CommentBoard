@@ -14,16 +14,17 @@ export default {
     },
     data(){
         return {
-            pageArray: []
+            pageArray: [],
+            header:[]
         }
     },
     mounted(){
+        console.log("test");
         this.getList();
-        console.log(this.$store.state.token);
     }
     ,methods: {
         getList(){
-            this.$http.get("http://127.0.0.1:3000/board")
+            this.$http.get("http://127.0.0.1:3000/board/", { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
             .then((res)=>{
 				console.log(res.data);
                 this.pageArray = res.data;
@@ -33,7 +34,7 @@ export default {
 			})
         }
         ,goWrite(){
-			this.$router.push({path:'/board/write'}); //추가한 상세페이지 라우터
+			this.$router.push({path:'./write'}); //추가한 상세페이지 라우터
         }
     }
 }

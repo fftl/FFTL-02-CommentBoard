@@ -56,7 +56,7 @@ export default {
     fnView(num) {
             console.log(num)
 			this.boardId = num;
-			this.$router.push({path:'/board/view', query: {boardId:this.boardId}}); //추가한 상세페이지 라우터
+			this.$router.push({path:'./view', query: {boardId:this.boardId}}); //추가한 상세페이지 라우터
 	}
   },
   computed: {

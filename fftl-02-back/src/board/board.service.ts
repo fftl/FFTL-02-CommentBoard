@@ -14,4 +14,8 @@ export class BoardService {
   async saveBoard(saveBoardDto: SaveBoardDto) {
     return this.boardRepository.save(saveBoardDto);
   }
+
+  async getBoard(){
+    return this.boardRepository.find();
+  }
 }

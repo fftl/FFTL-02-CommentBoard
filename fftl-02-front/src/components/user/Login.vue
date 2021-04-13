@@ -2,11 +2,11 @@
     <div>
         <form>
             <p><span>아이디 :</span><input type="text" v-model="username" ref="username"></p>
-            <p><span>비밀번호 :</span><input type="text" v-model="password" ref="password"></p>
+            <p><span>비밀번호 :</span><input type="password" v-model="password" ref="password"></p>
         </form>
     </div>
     <div class="btnWrap">
-        <a href="javascript:;" @click="back" class="btn">목록</a>
+        <a href="javascript:;" @click="golist" class="btn">목록</a>
         <a href="javascript:;" @click="login" class="btnAdd btn">로그인</a>
     </div>
 </template>
@@ -20,11 +20,10 @@ export default {
         }
     },
     mounted(){
-      console.log(this.$store.state.token);
     },
     methods: {
-        back(){
-            this.$router.push({ path: "./list" });
+        golist(){
+            this.$router.push({ path: "/board/list" });
         },
         login(){
             this.form = {
@@ -35,8 +34,8 @@ export default {
             .then((res) => {
                 console.log(res);
                 if(res.status == 201){
-                  //
                   this.$store.commit('setToken', res.data.access_token);
+                  this.golist();
                 }
                 console.log(this.$store.state.token);
             })

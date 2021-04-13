@@ -41,10 +41,6 @@ export default {
     };
   },
   mounted() {
-    if (this.boardId) {
-      console.log("fnGetView run!!");
-      this.fnGetView();
-    }
   },
   methods: {
     back() {
