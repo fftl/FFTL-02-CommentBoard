@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Board } from "./board.entity";
-import { Comment } from "./comments.entity";
+import { Comment } from "./comment.entity";
 
 @Entity()
 export class User {

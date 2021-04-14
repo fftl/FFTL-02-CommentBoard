@@ -10,7 +10,7 @@
       <tr v-for="p in paginatedData" :key="p.no">
         <td>{{ p.bid }}</td>
         <td>{{ p.nickname }}</td>
-        <td><a href="javascript:;" @click="fnView(`${p.id}`)">{{ p.title }}</a></td>
+        <td><a href="javascript:;" @click="goUpdate(`${p.bid}`)">{{ p.title }}</a></td>
         <td>{{ p.bregdate }}</td>
       </tr>
     </table>
@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       pageNum: 0
-      ,boardId : ''
+      ,bid : ''
     }
   },
   props: {
@@ -53,10 +53,9 @@ export default {
     prevPage () {
       this.pageNum -= 1;
     },
-    fnView(num) {
-            console.log(num)
-			this.boardId = num;
-			this.$router.push({path:'./view', query: {boardId:this.boardId}}); //추가한 상세페이지 라우터
+    goUpdate(num) {
+			this.bid = num;
+			this.$router.push({path:'/board/view', query: {bid : this.bid}}); //추가한 상세페이지 라우터
 	}
   },
   computed: {

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { BoardService } from './board.service';
 import { SaveBoardDto } from './dto/saveBoard.dto';
@@ -16,7 +16,12 @@ export class BoardController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async getBoard(){
-    return this.boardService.getBoard();
+    return await this.boardService.getBoards();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get("/:bid")
+  async getOneBoard(@Param('bid') bid: number){
+    return await this.boardService.getOneBoard(bid);
+  }
 }

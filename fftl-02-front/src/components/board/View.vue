@@ -15,11 +15,11 @@
           </tr>
           <tr>
             <th>작성자</th>
-            <td>{{ writer }}</td>
+            <td>{{ nickname }}</td>
           </tr>
           <tr>
             <th>날짜</th>
-            <td>{{ regdate }}</td>
+            <td>{{ bregdate }}</td>
           </tr>
           <tr>
             <th>내용</th>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="btnWrap">
-      <a href="javascript:;" @click="fnList" class="btn">목록</a>
+      <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
     </div>
   </div>
@@ -40,36 +40,34 @@
 export default {
   data() {
     return {
-      body: this.$route.query.boardId,
+      bid: this.$route.query.bid,
       title: "",
-      writer: "",
-      regdate: "",
-      view: "",
+      nickname: "",
+      bregdate: "",
       content: "",
-      boardId: this.$route.query.boardId,
     };
   },
   mounted() {
-    console.log(this.$route);
-    this.fnGetView();
+    console.log(this.$route.query);
+    this.getOneBoard();
   },
   methods: {
-    fnGetView() {
+    getOneBoard() {
       this.$http
-        .get("http://localhost:3000/board/" + this.body, { params: this.body })
+        .get("http://localhost:3000/board/" + this.bid, { headers : {'Authorization' : 'Bearer ' + this.$store.state.token }})
         .then((res) => {
           console.log(res);
           this.body = res.data;
           this.title = this.body.title;
-          this.writer = this.body.writer;
-          this.regdate = this.body.regdate;
+          this.nickname = this.body.nickname;
+          this.bregdate = this.body.bregdate;
           this.content = this.body.content.replace(/(\n)/g, "<br/>");
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    fnList() {
+    goList() {
       delete this.body.num;
       this.$router.push({ path: "./list", query: this.body });
     },
