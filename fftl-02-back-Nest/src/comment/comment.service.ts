@@ -32,10 +32,14 @@ export class CommentService {
             
         return this.commentRepository.save(comment);
     }
-
+    
+    //bid에 맞는 댓글들을 조회하여 보내주었다. 성공!!
     async getComments(bid : number): Promise<Comment[]> {
-        const board = this.boardService.getOneBoard(bid);
-        return (await board).comments;
+        const comments = this.commentRepository.find({
+            relations:["board"], 
+            where:{ board : {bid:bid} }
+        });
+        return comments;
     }
 
 }
