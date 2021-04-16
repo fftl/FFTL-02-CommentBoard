@@ -55,7 +55,7 @@ export default {
     },
     goUpdate(num) {
 			this.bid = num;
-			this.$router.push({path:'/board/view', query: {bid : this.bid}}); //추가한 상세페이지 라우터
+			this.$router.push({path:'/board/view/', query: {bid : this.bid}}); //추가한 상세페이지 라우터
 	}
   },
   computed: {

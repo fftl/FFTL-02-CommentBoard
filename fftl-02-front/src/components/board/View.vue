@@ -53,7 +53,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route.query);
     this.getOneBoard();
   },
   methods: {
@@ -63,7 +62,6 @@ export default {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
-          console.log(res);
           this.body = res.data;
           this.title = this.body.title;
           this.nickname = this.body.nickname;
@@ -79,9 +77,8 @@ export default {
       this.$router.push({ path: "./list", query: this.body });
     },
     fnMod() {
-      console.log(this.boardId);
       console.log("------------------------- View");
-      this.$router.push({ path: "./write", query: { boardId: this.boardId } }); //등록화면으로 이동하면서 파라미터를 넘겨준다.
+      this.$router.push({ path: "./write", query: { bid: this.boardId } }); //등록화면으로 이동하면서 파라미터를 넘겨준다.
     },
 
     // ,fnModProc() {

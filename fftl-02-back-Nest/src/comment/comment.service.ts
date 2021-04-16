@@ -12,12 +12,23 @@ export class CommentService {
         @InjectRepository(Comment)
         private readonly commentRepository: Repository<Comment>,
 
-        private readonly boardService : BoardService,
-        private readonly userService : UserService,
+        private readonly boardService: BoardService,
+        private readonly userService: UserService,
     ){}
 
     async saveComment(saveComment: SaveCommentDto){
-        return this.commentRepository.save(saveComment);
 
+        const user = this.userService.findOneByUid(saveComment.uid);
+        const board = this.boardService.getOneBoard(saveComment.bid);
+
+        const comment = new Comment(
+            saveComment.nickname,
+            saveComment.comment,
+            saveComment.cregdate,
+            await user,
+            await board
+            )
+            
+        return this.commentRepository.save(comment);
     }
 }

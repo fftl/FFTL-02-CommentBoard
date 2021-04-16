@@ -27,4 +27,12 @@ export class Comment{
         (board) => board.comments,
     )
     board: Board;
+
+    constructor(nickname: string, comment: string, cregdate: string, user: User, board: Board){
+        this.nickname = nickname;
+        this.comment = comment;
+        this.cregdate = cregdate;
+        this.user = user;
+        this.board = board;
+    }
 }
