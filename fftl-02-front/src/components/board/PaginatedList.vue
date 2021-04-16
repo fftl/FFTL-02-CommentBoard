@@ -7,7 +7,7 @@
         <th>TITLE</th>
         <th>REGDATE</th>
       </tr>
-      <tr v-for="p in paginatedData" :key="p.no">
+      <tr v-for="p in paginatedData" :key="p.bid">
         <td>{{ p.bid }}</td>
         <td>{{ p.nickname }}</td>
         <td><a href="javascript:;" @click="goUpdate(`${p.bid}`)">{{ p.title }}</a></td>

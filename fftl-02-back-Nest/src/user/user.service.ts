@@ -19,4 +19,9 @@ export class UserService {
     //User 또는 undefined 를 반환해줍니다.
     return this.userRepository.findOne({ username: username });
   }
+
+  async findOneByUid(uid: number): Promise<User> {
+    //User 또는 undefined 를 반환해줍니다.
+    return this.userRepository.findOne({ uid: uid });
+  }
 }

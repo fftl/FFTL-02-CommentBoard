@@ -2,7 +2,7 @@
 	<div>
 		<h2>게시판 리스트</h2>
         <button class="goWrite" @click="goWrite">글 작성하기</button>
-        <paginated-list :list-array="pageArray" />
+        <PaginatedList :listArray="pageArray" />
 	</div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     },
     data(){
         return {
-            pageArray: [],
+            pageArray:[],
             header:[]
         }
     },

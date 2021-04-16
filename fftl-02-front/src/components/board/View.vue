@@ -33,11 +33,16 @@
       <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
     </div>
+    <comments />
   </div>
 </template>
 
 <script>
+import Comments from "./Comments";
 export default {
+  components: {
+    Comments,
+  },
   data() {
     return {
       bid: this.$route.query.bid,
@@ -54,7 +59,9 @@ export default {
   methods: {
     getOneBoard() {
       this.$http
-        .get("http://localhost:3000/board/" + this.bid, { headers : {'Authorization' : 'Bearer ' + this.$store.state.token }})
+        .get("http://localhost:3000/board/" + this.bid, {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
+        })
         .then((res) => {
           console.log(res);
           this.body = res.data;

@@ -11,7 +11,7 @@
           </colgroup>
           <tr>
             <th>제목</th>
-            <td><input type="text" v-model="title" ref="title" /></td>
+            <td><input type="text" v-model="title" ref="title"/></td>
           </tr>
           <tr>
             <th>작성자</th>
