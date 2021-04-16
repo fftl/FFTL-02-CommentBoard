@@ -10,7 +10,9 @@
       <tr v-for="p in paginatedData" :key="p.bid">
         <td>{{ p.bid }}</td>
         <td>{{ p.nickname }}</td>
-        <td><a href="javascript:;" @click="goUpdate(`${p.bid}`)">{{ p.title }}</a></td>
+        <td>
+          <a href="javascript:;" @click="goUpdate(`${p.bid}`)">{{ p.title }}</a>
+        </td>
         <td>{{ p.bregdate }}</td>
       </tr>
     </table>
@@ -19,7 +21,11 @@
         이전
       </button>
       <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
-      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+      <button
+        :disabled="pageNum >= pageCount - 1"
+        @click="nextPage"
+        class="page-btn"
+      >
         다음
       </button>
     </div>
@@ -28,56 +34,56 @@
 
 <script>
 export default {
-  name: 'paginated-list',
-  data () {
+  name: "paginated-list",
+  data() {
     return {
-      pageNum: 0
-      ,bid : ''
-    }
+      pageNum: 0,
+      bid: "",
+    };
   },
   props: {
     listArray: {
       type: Array,
-      required: true
+      required: true,
     },
     pageSize: {
       type: Number,
       required: false,
-      default: 10
-    }
+      default: 10,
+    },
   },
   methods: {
-    nextPage () {
+    nextPage() {
       this.pageNum += 1;
     },
-    prevPage () {
+    prevPage() {
       this.pageNum -= 1;
     },
     goUpdate(num) {
-			this.bid = num;
-			this.$router.push({path:'/board/view/', query: {bid : this.bid}}); //추가한 상세페이지 라우터
-	}
+      this.bid = num;
+      this.$router.push({ path: "/board/view/", query: { bid: this.bid } }); //추가한 상세페이지 라우터
+    },
   },
   computed: {
-    pageCount () {
+    pageCount() {
       let listLeng = this.listArray.length,
-          listSize = this.pageSize,
-          page = Math.floor(listLeng / listSize);
+        listSize = this.pageSize,
+        page = Math.floor(listLeng / listSize);
       if (listLeng % listSize > 0) page += 1;
-      
+
       /*
-      아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
-      이런식으로 if 문 없이 고칠 수도 있다!
+        아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
+        이런식으로 if 문 없이 고칠 수도 있다!
       */
       return page;
     },
-    paginatedData () {
+    paginatedData() {
       const start = this.pageNum * this.pageSize,
-            end = start + this.pageSize;
+        end = start + this.pageSize;
       return this.listArray.slice(start, end);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>

@@ -33,7 +33,7 @@
       <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
     </div>
-    <comments />
+    <Comments :commentsArray="comments"/>
   </div>
 </template>
 
@@ -50,18 +50,21 @@ export default {
       nickname: "",
       bregdate: "",
       content: "",
+      comments: []
     };
   },
   mounted() {
     this.getOneBoard();
+    this.getComments();
   },
   methods: {
     getOneBoard() {
       this.$http
         .get("http://localhost:3000/board/" + this.bid, {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+          headers: { "Authorization" : "Bearer " + this.$store.state.token },
         })
         .then((res) => {
+          console.log(res.data);
           this.body = res.data;
           this.title = this.body.title;
           this.nickname = this.body.nickname;
@@ -80,7 +83,20 @@ export default {
       console.log("------------------------- View");
       this.$router.push({ path: "./write", query: { bid: this.boardId } }); //등록화면으로 이동하면서 파라미터를 넘겨준다.
     },
-
+    getComments() {
+      this.$http
+      .get("http://127.0.0.1:3000/comment/"+this.bid, {
+        headers : { "Authorization" : "Bearer " + this.$store.state.token },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        this.comments = res.data;
+      })
+      .catch((err) => {
+        alert(err);
+      })
+    }
     // ,fnModProc() {
     //   if (!this.title) {
     //     alert("제목을 입력해 주세요");

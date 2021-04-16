@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardService } from 'src/board/board.service';
+import { Board } from 'src/entities/board.entity';
 import { Comment } from 'src/entities/comment.entity';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
@@ -31,4 +32,10 @@ export class CommentService {
             
         return this.commentRepository.save(comment);
     }
+
+    async getComments(bid : number): Promise<Comment[]> {
+        const board = this.boardService.getOneBoard(bid);
+        return (await board).comments;
+    }
+
 }
