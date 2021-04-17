@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         golist(){
-            this.$router.push({ path: "/board/list" });
+            this.$router.push({ path: "/" });
         }
         //로그인하여 토큰 정보를 store 에 담는다.
         //uid 와 nickname도 사용하기 쉽게 담아보자.

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p><span>{{ nickname }} : </span><input id="inputComment" type="text" v-model="comment" ref="comment" />{{ comment }}<button @click="addComment">입력</button></p>
+    <p><span>{{ nickname }} : </span><input id="inputComment" type="text" v-model="comment" ref="comment" /><button @click="addComment">입력</button></p>
     <table class="comments">
         <tr v-for="c in comments" :key="c.cid">
             <td>{{ c.nickname }} </td>

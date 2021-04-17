@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardService } from 'src/board/board.service';
-import { Board } from 'src/entities/board.entity';
 import { Comment } from 'src/entities/comment.entity';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
@@ -35,9 +34,10 @@ export class CommentService {
     
     //bid에 맞는 댓글들을 조회하여 보내주었다. 성공!!
     async getComments(bid : number): Promise<Comment[]> {
+        //comments를 가져온다. commentRepository 를 사용하여,
         const comments = this.commentRepository.find({
-            relations:["board"], 
-            where:{ board : {bid:bid} }
+            relations:["board"],    //board와 관계를 갖고 있고,
+            where:{ board : {bid:bid} } //board의 bid 와 getComments의 변수 bid와 동일한 것만 가져온다.
         });
         return comments;
     }

@@ -1,12 +1,12 @@
 <template>
 	<header>
-		<h1><router-link to="/"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
+		<!-- 로그인이 되어있다면 loginOk 를 판단하여 로고 버튼이 list로 이동됩니다. -->
+		<!-- 아니라면 로그인 화면으로 이동되게 됩니다. -->
+		<h1 v-if="loginOk"><router-link to="/board/list"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
+		<h1 v-else><router-link to="/"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
 		<div class="menuWrap">
 			<ul class="menu">
-				<li><router-link to="/board/list">게시판</router-link></li>
-				<!-- <li><a href="javascript:;">메뉴2</a></li>
-				<li><a href="javascript:;">메뉴3</a></li>
-				<li><a href="javascript:;">메뉴4</a></li> -->
+				<li><router-link to="#" @click="logout">로그아웃</router-link></li>
 			</ul>
 		</div>
 	</header>
@@ -14,7 +14,28 @@
 
 <script>
 export default {
-	
+	data(){
+		return {
+			loginOk: false,
+		}
+	},
+	mounted(){
+		//로그인 여부를 판단하여 로고버튼 클릭시의 동작을 바꿔줍니다.
+		if(this.$store.state.uid){
+			console.log("login");
+			this.loginOk = true;
+		} else {
+			console.log("logout");
+			this.loginOk = false;
+		}
+	},
+	methods:{
+		logout(){
+			this.$store.commit('resetState');
+			this.$router.push({ path: "/"});
+			this.loginOk = false;
+		}
+	}
 }
 </script>
 
