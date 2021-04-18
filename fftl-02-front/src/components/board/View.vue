@@ -29,9 +29,13 @@
       </form>
     </div>
 
-    <div class="btnWrap">
+    <div v-if="uCheck" class="btnWrap">
       <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
+      <a href="javascript:;" @click="fnMod" class="btnAdd btn">삭제</a>
+    </div>
+    <div v-else class="btnWrap">
+      <a href="javascript:;" @click="goList" class="btn">목록</a>
     </div>
     <Comments :commentsArray="comments" />
   </div>
@@ -45,7 +49,7 @@ export default {
   },
   data() {
     return {
-      usercheck: false,
+      uCheck: false,
       bid: this.$route.query.bid,
       uid: "",
       title: "",
@@ -62,7 +66,7 @@ export default {
   methods: {
     userCheck() {
       if (this.$store.state.uid == this.uid) {
-        alert("작성자 입니다!");
+        this.uCheck = true;
       }
     },
     getOneBoard() {

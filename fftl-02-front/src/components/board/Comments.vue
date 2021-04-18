@@ -22,6 +22,7 @@ export default {
         return{
             nickname:"",
             comment:"",
+            bid:this.$route.query.bid,
             form:""
         }
     },
@@ -43,8 +44,10 @@ export default {
             this.$http
             .post("http://localhost:3000/comment/", this.form, { headers : {'Authorization':'Bearer '+ this.$store.state.token }})
             .then((res) => {
-                alert("댓글이 등록되었습니다.");
                 console.log(res);
+                alert("댓글이 등록되었습니다.");
+                this.$router.push({ redirect : "/board/view/", query: { bid: this.bid } });
+                console.log("Test");
             })
             .catch((err) => {
                 console.log(err);
