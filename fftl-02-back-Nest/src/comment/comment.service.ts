@@ -19,7 +19,7 @@ export class CommentService {
     async saveComment(saveComment: SaveCommentDto){
 
         const user = this.userService.findOneByUid(saveComment.uid);
-        const board = this.boardService.getOneBoard(saveComment.bid);
+        const board = this.boardService.findOneBoardBid(saveComment.bid);
 
         const comment = new Comment(
             saveComment.nickname,

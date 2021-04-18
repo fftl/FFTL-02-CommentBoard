@@ -40,10 +40,10 @@ export default {
                 uid: this.$store.state.uid,
                 bid: this.$route.query.bid,
             }
-            console.log(this.form);
             this.$http
             .post("http://localhost:3000/comment/", this.form, { headers : {'Authorization':'Bearer '+ this.$store.state.token }})
             .then((res) => {
+                alert("댓글이 등록되었습니다.");
                 console.log(res);
             })
             .catch((err) => {

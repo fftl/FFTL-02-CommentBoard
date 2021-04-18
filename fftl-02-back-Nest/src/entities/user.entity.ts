@@ -18,13 +18,13 @@ export class User {
 
     @OneToMany(
         (type) => Board,
-        (boards) => boards.user,
+        (board) => board.user,
     )
     boards: Board[];
 
     @OneToMany(
         (type) => Comment,
-        (comments) => comments.user,
+        (comment) => comment.user,
     )
     comments: Comment[];
 }

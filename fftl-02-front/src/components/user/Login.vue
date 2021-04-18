@@ -6,7 +6,7 @@
         </form>
     </div>
     <div class="btnWrap">
-        <a href="javascript:;" @click="golist" class="btn">목록</a>
+        <a href="javascript:;" @click="goIndex" class="btn">취소</a>
         <a href="javascript:;" @click="login" class="btnAdd btn">로그인</a>
     </div>
 </template>
@@ -24,6 +24,9 @@ export default {
     },
     methods: {
         golist(){
+            this.$router.push({ path: "/board/list" });
+        },
+        goIndex(){
             this.$router.push({ path: "/" });
         }
         //로그인하여 토큰 정보를 store 에 담는다.
@@ -37,6 +40,7 @@ export default {
             .then((res) => {
                 if(res.status == 201){
                   this.$store.commit('setToken', res.data.access_token);
+                  this.$store.commit('setLoginCheck', true);
                   this.myInfo();
                   this.golist();
                 }

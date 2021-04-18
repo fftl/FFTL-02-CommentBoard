@@ -33,7 +33,7 @@
       <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
     </div>
-    <Comments :commentsArray="comments"/>
+    <Comments :commentsArray="comments" />
   </div>
 </template>
 
@@ -45,12 +45,14 @@ export default {
   },
   data() {
     return {
+      usercheck: false,
       bid: this.$route.query.bid,
+      uid: "",
       title: "",
       nickname: "",
       bregdate: "",
       content: "",
-      comments: []
+      comments: [],
     };
   },
   mounted() {
@@ -58,18 +60,25 @@ export default {
     this.getComments();
   },
   methods: {
+    userCheck() {
+      if (this.$store.state.uid == this.uid) {
+        alert("작성자 입니다!");
+      }
+    },
     getOneBoard() {
       this.$http
         .get("http://localhost:3000/board/" + this.bid, {
-          headers: { "Authorization" : "Bearer " + this.$store.state.token },
+          headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
           this.body = res.data;
-          this.title = this.body.title;
-          this.nickname = this.body.nickname;
-          this.bregdate = this.body.bregdate;
-          this.content = this.body.content.replace(/(\n)/g, "<br/>");
+          this.title = res.data.title;
+          this.nickname = res.data.nickname;
+          this.bregdate = res.data.bregdate;
+          this.content = res.data.content.replace(/(\n)/g, "<br/>");
+          this.uid = res.data.user.uid;
+          this.userCheck();
         })
         .catch((err) => {
           console.log(err);
@@ -77,26 +86,20 @@ export default {
     },
     goList() {
       delete this.body.num;
-      this.$router.push({ path: "./list", query: this.body });
-    },
-    fnMod() {
-      console.log("------------------------- View");
-      this.$router.push({ path: "./write", query: { bid: this.boardId } }); //등록화면으로 이동하면서 파라미터를 넘겨준다.
+      this.$router.push({ path: "/board/list", query: this.body });
     },
     getComments() {
       this.$http
-      .get("http://127.0.0.1:3000/comment/"+this.bid, {
-        headers : { "Authorization" : "Bearer " + this.$store.state.token },
-      })
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        this.comments = res.data;
-      })
-      .catch((err) => {
-        alert(err);
-      })
-    }
+        .get("http://127.0.0.1:3000/comment/" + this.bid, {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
+        })
+        .then((res) => {
+          this.comments = res.data;
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    },
     // ,fnModProc() {
     //   if (!this.title) {
     //     alert("제목을 입력해 주세요");

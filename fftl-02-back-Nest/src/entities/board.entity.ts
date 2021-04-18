@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Comment } from "./comment.entity";
 import { User } from "./user.entity";
 
@@ -25,10 +25,18 @@ export class Board {
     )
     user : User;
 
+
     @OneToMany(
         (type) => Comment,
         (comments) => comments.board,
     )
     comments: Comment[];
 
+    constructor(title: string, content: string, nickname: string, bregdate: string, user: User){
+        this.title = title;
+        this.content = content;
+        this.nickname = nickname;
+        this.bregdate = bregdate;
+        this.user = user;
+    }
 }
