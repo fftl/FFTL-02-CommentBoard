@@ -6,7 +6,7 @@
 		<h1 v-else>logout<router-link to="/"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
 		<div class="menuWrap">
 			<ul class="menu">
-				<li><router-link to="#" @click="logout">로그아웃</router-link></li>
+				<li v-if="loginOk"><router-link to="#" @click="logout">로그아웃</router-link></li>
 			</ul>
 		</div>
 	</header>

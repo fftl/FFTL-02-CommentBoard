@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UserService } from 'src/user/user.service';
 import { BoardService } from './board.service';
-import { GetOneBoard } from './dto/getOneBoard.dto';
 import { SaveBoardDto } from './dto/saveBoard.dto';
 
 @Controller('board')

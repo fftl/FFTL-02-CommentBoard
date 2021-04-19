@@ -98,6 +98,7 @@ export default {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
+          console.log(res.data);
           this.comments = res.data;
         })
         .catch((err) => {
