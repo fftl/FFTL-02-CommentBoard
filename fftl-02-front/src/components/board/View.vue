@@ -29,6 +29,33 @@
       </form>
     </div>
 
+    <div v-if="uCheck" class="AddWrap">
+      <form>
+        <table class="tbAdd">
+          <colgroup>
+            <col width="15%" />
+            <col width="*" />
+          </colgroup>
+          <tr>
+            <th>제목</th>
+            <td>{{ title }}</td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td>{{ nickname }}</td>
+          </tr>
+          <tr>
+            <th>날짜</th>
+            <td>{{ bregdate }}</td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td class="txt_cont" v-html="content"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
     <div v-if="uCheck" class="btnWrap">
       <a href="javascript:;" @click="goList" class="btn">목록</a>
       <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
