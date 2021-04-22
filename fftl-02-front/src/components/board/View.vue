@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>게시판 상세보기</h1>
-
-    <div class="AddWrap">
+    <!-- 만약 게시글을 조회한 유저가 작성자라면 -->
+    <div v-if="uCheck" class="AddWrap">
       <form>
         <table class="tbAdd">
           <colgroup>
@@ -11,25 +11,21 @@
           </colgroup>
           <tr>
             <th>제목</th>
-            <td>{{ title }}</td>
+            <td><input type="text" v-model="title" ref="title"/></td>
           </tr>
           <tr>
             <th>작성자</th>
-            <td>{{ nickname }}</td>
-          </tr>
-          <tr>
-            <th>날짜</th>
-            <td>{{ bregdate }}</td>
+            <td><input type="text" v-model="nickname" ref="nickname" readonly="readonly"/></td>
           </tr>
           <tr>
             <th>내용</th>
-            <td class="txt_cont" v-html="content"></td>
+            <td><textarea v-model="content" ref="content"></textarea></td>
           </tr>
         </table>
       </form>
     </div>
-
-    <div v-if="uCheck" class="AddWrap">
+  <!-- 만약 게시글을 조회한 유저가 작성자가 아니라면 -->
+    <div v-else class="AddWrap">
       <form>
         <table class="tbAdd">
           <colgroup>
@@ -91,6 +87,7 @@ export default {
     this.getComments();
   },
   methods: {
+    //유저가 작성자인지 아닌지 확인합니다.
     userCheck() {
       if (this.$store.state.uid == this.uid) {
         this.uCheck = true;
@@ -201,6 +198,12 @@ export default {
 .tbAdd td.txt_cont {
   height: 300px;
   vertical-align: top;
+}
+.tbAdd td textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .btnWrap {
   text-align: center;

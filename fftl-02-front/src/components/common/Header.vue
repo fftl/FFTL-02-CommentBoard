@@ -2,8 +2,8 @@
 	<header>
 		<!-- 로그인이 되어있다면 loginOk 를 판단하여 로고 버튼이 list로 이동됩니다. -->
 		<!-- 아니라면 로그인 화면으로 이동되게 됩니다. -->
-		<h1 v-if="loginOk">login<router-link to="/board/list"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
-		<h1 v-else>logout<router-link to="/"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
+		<h1 v-if="loginOk"><router-link to="/board/list"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
+		<h1 v-else><router-link to="/"><img alt="Vue logo" src="../../assets/fftl-logo_basic.png" width="100"></router-link></h1>
 		<div class="menuWrap">
 			<ul class="menu">
 				<li v-if="loginOk"><router-link to="#" @click="logout">로그아웃</router-link></li>
