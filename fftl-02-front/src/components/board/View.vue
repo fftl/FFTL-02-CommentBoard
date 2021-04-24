@@ -128,55 +128,53 @@ export default {
         .catch((err) => {
           alert(err);
         });
+    }
+    ,boardUpdate() {
+      if (!this.title) {
+        alert("제목을 입력해 주세요");
+        this.$refs.title.focus(); //방식으로 선택자를 찾는다.
+        return;
+      }
+      this.form = {
+        title: this.title,
+        writer: this.writer,
+        content: this.content,
+        regdate: regdate,
+      };
+      this.$http
+        .put("http://localhost:3000/board/" + this.boardId, this.form)
+        .then((res) => {
+          console.log(res);
+          if (res.status == 200) {
+            alert("수정되었습니다.");
+            this.fnList();
+          } else {
+            alert("실행중 실패했습니다.\n다시 이용해 주세요");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    // ,fnModProc() {
-    //   if (!this.title) {
-    //     alert("제목을 입력해 주세요");
-    //     this.$refs.title.focus(); //방식으로 선택자를 찾는다.
-    //     return;
-    //   }
-
-    //   this.form = {
-    //     title: this.title,
-    //     writer: this.writer,
-    //     content: this.content,
-    //     regdate: regdate,
-    //   };
-
-    //   this.$http
-    //     .put("http://localhost:3000/board/" + this.boardId, this.form)
-    //     .then((res) => {
-    //       console.log(res);
-    //       if (res.status == 200) {
-    //         alert("수정되었습니다.");
-    //         this.fnList();
-    //       } else {
-    //         alert("실행중 실패했습니다.\n다시 이용해 주세요");
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    // fnDelProc() {
-    //   if (confirm("정말 삭제하시겠습니까?") == true) {
-    //     this.$http
-    //       .delete("http://localhost:3000/board/" + this.boardId)
-    //       .then((res) => {
-    //         if (res.status == 200) {
-    //           alert("삭제되었습니다.");
-    //           this.fnList();
-    //         } else {
-    //           alert("실행중 실패했습니다.\n다시 이용해 주세요");
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //   } else {
-    //     return;
-    //   }
-    // },
+    boardDelete() {
+      if (confirm("정말 삭제하시겠습니까?") == true) {
+        this.$http
+          .delete("http://localhost:3000/board/" + this.boardId)
+          .then((res) => {
+            if (res.status == 200) {
+              alert("삭제되었습니다.");
+              this.fnList();
+            } else {
+              alert("실행중 실패했습니다.\n다시 이용해 주세요");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        return;
+      }
+    },
   },
 };
 </script>
