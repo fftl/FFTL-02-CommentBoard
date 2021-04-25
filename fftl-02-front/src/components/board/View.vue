@@ -137,9 +137,9 @@ export default {
       }
       this.form = {
         title: this.title,
-        writer: this.writer,
+        nickname: this.nickname,
         content: this.content,
-        regdate: regdate,
+        bregdate: this.bregdate,
       };
       this.$http
         .put("http://localhost:3000/board/" + this.boardId, this.form)
