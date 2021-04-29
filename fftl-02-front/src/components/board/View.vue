@@ -18,6 +18,10 @@
             <td><input type="text" v-model="nickname" ref="nickname" readonly="readonly"/></td>
           </tr>
           <tr>
+            <th>날짜</th>
+            <td><input type="text" v-model="bregdate" ref="bregdate" readonly="readonly"/></td>
+          </tr>
+          <tr>
             <th>내용</th>
             <td><textarea v-model="content" ref="content"></textarea></td>
           </tr>
@@ -54,8 +58,8 @@
 
     <div v-if="uCheck" class="btnWrap">
       <a href="javascript:;" @click="goList" class="btn">목록</a>
-      <a href="javascript:;" @click="fnMod" class="btnAdd btn">수정</a>
-      <a href="javascript:;" @click="fnMod" class="btnAdd btn">삭제</a>
+      <a href="javascript:;" @click="boardUpdate" class="btnAdd btn">수정</a>
+      <a href="javascript:;" @click="boardDelete" class="btnAdd btn">삭제</a>
     </div>
     <div v-else class="btnWrap">
       <a href="javascript:;" @click="goList" class="btn">목록</a>
@@ -80,6 +84,7 @@ export default {
       bregdate: "",
       content: "",
       comments: [],
+      form:""
     };
   },
   mounted() {
@@ -141,8 +146,9 @@ export default {
         content: this.content,
         bregdate: this.bregdate,
       };
+      alert(this.bid );
       this.$http
-        .put("http://localhost:3000/board/" + this.boardId, this.form)
+        .patch("http://localhost:3000/board/" + this.bid, this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
         .then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -159,11 +165,11 @@ export default {
     boardDelete() {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete("http://localhost:3000/board/" + this.boardId)
+          .delete("http://localhost:3000/board/" + this.bid,  { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
           .then((res) => {
             if (res.status == 200) {
               alert("삭제되었습니다.");
-              this.fnList();
+              this.goList();
             } else {
               alert("실행중 실패했습니다.\n다시 이용해 주세요");
             }

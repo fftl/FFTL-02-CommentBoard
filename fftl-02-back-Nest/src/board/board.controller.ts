@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UserService } from 'src/user/user.service';
 import { BoardService } from './board.service';
 import { SaveBoardDto } from './dto/saveBoard.dto';
+import { UpdateBoardDto } from './dto/updateBoard.dto';
 
 @Controller('board')
 export class BoardController {
@@ -18,11 +19,16 @@ export class BoardController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post()
-  async updateBoard(@Body() saveBoardDto: SaveBoardDto) {
-    return this.boardService.saveBoard(saveBoardDto);
+  @Patch("/:bid")
+  async updateBoard(@Param('bid') bid: number, @Body() updateBoardDto: UpdateBoardDto) {
+    return this.boardService.updateBoard(bid, updateBoardDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Delete("/:bid")
+  async deleteBoard(@Param('bid') bid: number) {
+    return this.boardService.deleteBoard(bid);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -34,9 +40,6 @@ export class BoardController {
   @Get("/:bid")
   async getOneBoard(@Param('bid') bid: number){
     const board = await this.boardService.findOneBoardBid(bid);
-    // const user = await this.userService.findOneByBid(bid);
-    // const getOneBoard = new GetOneBoard(board.title, board.content, board.nickname, board.bregdate, user.uid);
-
     return board;
   }
 }

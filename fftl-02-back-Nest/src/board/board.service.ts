@@ -45,4 +45,8 @@ export class BoardService {
   async updateBoard(bid: number, updateBoardDto: UpdateBoardDto) {
     return this.boardRepository.save({ bid: +bid, ...updateBoardDto });
   }
+
+  async deleteBoard(bid: number){
+    return this.boardRepository.delete(bid);
+  }
 }
