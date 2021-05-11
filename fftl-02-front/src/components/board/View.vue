@@ -146,14 +146,13 @@ export default {
         content: this.content,
         bregdate: this.bregdate,
       };
-      alert(this.bid );
       this.$http
         .patch("http://localhost:3000/board/" + this.bid, this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
         .then((res) => {
           console.log(res);
           if (res.status == 200) {
             alert("수정되었습니다.");
-            this.fnList();
+            this.goList();
           } else {
             alert("실행중 실패했습니다.\n다시 이용해 주세요");
           }

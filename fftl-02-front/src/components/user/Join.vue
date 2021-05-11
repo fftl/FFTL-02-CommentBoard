@@ -22,7 +22,7 @@
       </form>
     </div>
     <div class="btnWrap">
-      <a href="javascript:;" @click="back" class="btn">목록</a>
+      <a href="javascript:;" @click="goHome" class="btn">목록</a>
       <a href="javascript:;" @click="saveUser" class="btnAdd btn">가입완료</a>
     </div>
   </div>
