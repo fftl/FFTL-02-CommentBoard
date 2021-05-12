@@ -17,13 +17,18 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
-    return null;
+    let notfound : string = "not found..";
+    return notfound;
   }
 
   async login(user: any) {
-    const payload = { username: user.username, uid: user.uid, nickname: user.nickname };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    if(user.username){ //유저가 존재한다면
+      const payload = { username: user.username, uid: user.uid, nickname: user.nickname };
+      return {
+        access_token: this.jwtService.sign(payload),
+      };
+    } else { //유저가 존재하지 않는다면
+      return user;
+    }
   }
 }

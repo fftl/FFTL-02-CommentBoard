@@ -1,8 +1,8 @@
 <template>
     <div>
         <form>
-            <p><span>아이디 :</span><input type="text" v-model="username" ref="username"></p>
-            <p><span>비밀번호 :</span><input type="password" v-model="password" ref="password"></p>
+            <p><span>아이디 :</span><input class="username" type="text" v-model="username" ref="username"></p>
+            <p><span>비밀번호 :</span><input class="password" type="password" v-model="password" ref="password"></p>
         </form>
     </div>
     <div class="btnWrap">
@@ -31,25 +31,37 @@ export default {
         }
         //로그인하여 토큰 정보를 store 에 담는다.
         //uid 와 nickname도 사용하기 쉽게 담아보자.
-        ,login(){ 
-            this.form = {
-                username: this.username,
-                password: this.password
+        ,login(){
+            if( !this.username ){
+              alert("아이디를 입력해 주세요.");
+              document.getElementsByClassName("username")[0].focus();
+            } else if( !this.password ){
+              alert("비밀번호를 입력해 주세요.");
+              document.getElementsByClassName("password")[0].focus();
+            } else {
+              this.form = {
+                  username: this.username,
+                  password: this.password
+              }
+              alert("Test")
+              this.$http.post("http://localhost:3000/user/login/", this.form)
+              .then((res) => {
+                console.log(res)
+                  if(res.status == 201 && res.data != "not found.."){
+                    this.$store.commit('setToken', res.data.access_token);
+                    this.$store.commit('setLoginCheck', true);
+                    this.myInfo();
+                    this.golist();
+                  } else { // 로그인 정보가 일치하지 않을 때!!
+                    alert("아이디나 비밀번호가 틀렸습니다. 확인해주세요.");
+                  }
+                  // console.log(this.$store.state.token);
+              })
+              .catch((err) => {
+                alert(err);
+              })
             }
-            this.$http.post("http://localhost:3000/user/login/",this.form)
-            .then((res) => {
-                if(res.status == 201){
-                  this.$store.commit('setToken', res.data.access_token);
-                  this.$store.commit('setLoginCheck', true);
-                  this.myInfo();
-                  this.golist();
-                }
-                console.log(this.$store.state.token);
-            })
-            .catch((err) => {
-              alert(err);
-            })
-        }
+      }
         ,myInfo(){
           this.$http.get("http://localhost:3000/user/profile/", { headers:{'Authorization' : 'Bearer ' + this.$store.state.token }} )
           .then((res) => {
