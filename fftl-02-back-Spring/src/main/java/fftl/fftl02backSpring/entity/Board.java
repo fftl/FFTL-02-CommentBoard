@@ -12,6 +12,13 @@ import javax.persistence.Id;
 @Entity
 public class Board {
 
+    @GeneratedValue
+    @Id
+    private Long boardId;
+
+    private String title;
+    private String content;
+    private String nickName;
 
 
 }
