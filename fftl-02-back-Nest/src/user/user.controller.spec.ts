@@ -15,4 +15,8 @@ describe('UserController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it("테스트", () => {
+    expect(1+1).toEqual(2);
+  })
 });

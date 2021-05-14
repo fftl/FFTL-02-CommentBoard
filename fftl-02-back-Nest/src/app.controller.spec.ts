@@ -19,4 +19,8 @@ describe('AppController', () => {
       expect(appController.getHello()).toBe('Hello World!');
     });
   });
+
+  it("테스트", () => {
+    expect(1+1).toEqual(2);
+  })
 });
