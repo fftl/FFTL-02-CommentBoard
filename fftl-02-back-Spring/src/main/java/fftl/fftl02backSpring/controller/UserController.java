@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @PostMapping("/user")
+    @PostMapping("/i")
     public String Join(){
 
         return "";
     }
 
-    @PostMapping("/user")
+    @PostMapping("/o")
     public String login(){
 
         return "";
     }
 
-    @PostMapping("/user")
+    @PostMapping("/p")
     public String loginCheck(){
 
         return "";

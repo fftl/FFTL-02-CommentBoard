@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CommentController {
 
-    @PostMapping("")
+    @PostMapping("e")
     public String addComment(){
         return "";
     }
 
-    @GetMapping("")
+    @GetMapping("f")
     public String getAllComment(){
         return "";
     }

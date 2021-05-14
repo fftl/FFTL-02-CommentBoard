@@ -68,17 +68,6 @@
       "json",
       "ts"
     ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "modulePaths": [
-      "<rootDir>/auth",
-      "<rootDir>/user",
-      "<rootDir>/board",
-      "<rootDir>/comment",
-      "<rootDir>/entities"
-    ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {

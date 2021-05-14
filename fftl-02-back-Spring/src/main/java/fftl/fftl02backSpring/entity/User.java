@@ -3,6 +3,7 @@ package fftl.fftl02backSpring.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -25,7 +27,6 @@ public class User implements UserDetails {
 
     private String userName;
     private String passWord;
-
     private String joinDate;
     private String nickName;
 
@@ -34,7 +35,6 @@ public class User implements UserDetails {
 
     //인증관련===========================================================================================================
     @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
     @Override

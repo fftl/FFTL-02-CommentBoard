@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BoardController {
 
-    @GetMapping("")
+    @GetMapping("a")
     public String getAllBoard(){
         return "";
     }
 
-    @GetMapping("")
+    @GetMapping("b")
     public String getBoard(){
         return "";
     }
 
-    @PostMapping("")
+    @PostMapping("c")
     public String addBoard(){
         return "";
     }
 
-    @PutMapping("")
+    @PutMapping("d")
     public String updateBoard(){
         return "";
     }
