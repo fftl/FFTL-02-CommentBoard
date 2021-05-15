@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Board } from 'src/entities/board.entity';
-import { User } from 'src/entities/user.entity';
-import { UserService } from 'src/user/user.service';
+import { Board } from '../entities/board.entity';
+import { User } from '../entities/user.entity';
+import { UserService } from '../user/user.service';
 import { Repository } from 'typeorm';
 import { SaveBoardDto } from './dto/saveBoard.dto';
 import { UpdateBoardDto } from './dto/updateBoard.dto';

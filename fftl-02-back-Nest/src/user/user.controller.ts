@@ -6,9 +6,9 @@ import {
   UseGuards,
   Get,
 } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
+import { AuthService } from '../auth/auth.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
 import { SaveUserDto } from './dto/saveUser.dto';
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt'; //bcrypt 사용시 추가

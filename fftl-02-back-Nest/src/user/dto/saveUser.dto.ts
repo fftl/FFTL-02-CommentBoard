@@ -1,5 +1,5 @@
-import { Board } from 'src/entities/board.entity';
-import { Comment } from 'src/entities/comment.entity';
+import { Board } from '../../entities/board.entity';
+import { Comment } from '../../entities/comment.entity';
 
 export class SaveUserDto {
   uid: number;
