@@ -1,8 +1,17 @@
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserModule } from '../user/user.module';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { User } from '../entities/user.entity';
+import { getRepository } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
+import { jwtConstants } from './constants';
+
+const mockRepository = () => ({
+  saveUser: jest.fn(),
+  findOne: jest.fn(),
+  findOneByUid: jest.fn(),
+})
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -10,10 +19,14 @@ describe('AuthService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports:[
-        UserModule
+        JwtModule.register({
+          secret: jwtConstants.secret,
+          signOptions: { expiresIn: '3600s' },
+        })
       ],
       providers: [
-        AuthService, JwtService
+        AuthService, UserService,
+        {provide : getRepositoryToken(User), useValue:mockRepository() }
     ],
     }).compile();
 
@@ -23,4 +36,5 @@ describe('AuthService', () => {
   it('should be defined', () => {
     expect(authService).toBeDefined();
   });
+
 });

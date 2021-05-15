@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from '../entities/board.entity';
-import { User } from '../entities/user.entity';
 import { UserService } from '../user/user.service';
 import { Repository } from 'typeorm';
 import { SaveBoardDto } from './dto/saveBoard.dto';
@@ -12,7 +11,6 @@ export class BoardService {
   constructor(
     @InjectRepository(Board)
     private readonly boardRepository: Repository<Board>,
-
     private readonly userService: UserService,
   ) {}
 
