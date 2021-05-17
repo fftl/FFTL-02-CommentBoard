@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,10 +26,10 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long userId;
 
-    private String userName;
-    private String passWord;
+    private String username;
+    private String password;
     private String joinDate;
-    private String nickName;
+    private String nickname;
 
     //private List<Comment> Comments = new ArrayList<>();
     //private List<Board> Boards = new ArrayList<>();
@@ -45,13 +46,13 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.userName;
+        return this.username;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getPassword() {
-        return this.passWord;
+        return this.password;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

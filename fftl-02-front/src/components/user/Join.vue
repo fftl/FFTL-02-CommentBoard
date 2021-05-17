@@ -62,7 +62,7 @@ export default {
       };
 
       this.$http
-        .post("http://localhost:3000/user/saveUser", this.form)
+        .post("http://localhost:8080/user/saveUser", this.form)
         .then((res) => {
           console.log(res);
           alert("회원가입에 성공했습니다.");

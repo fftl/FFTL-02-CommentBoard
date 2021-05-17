@@ -18,7 +18,7 @@ public class Board {
 
     private String title;
     private String content;
-    private String nickName;
+    private String nickname;
 
 
 }
