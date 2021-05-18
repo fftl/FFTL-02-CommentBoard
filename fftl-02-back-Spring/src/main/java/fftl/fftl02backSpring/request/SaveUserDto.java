@@ -1,11 +1,12 @@
 package fftl.fftl02backSpring.request;
 
 import fftl.fftl02backSpring.entity.User;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
-@Builder
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SaveUserDto{
 
     private String username;
@@ -13,7 +14,8 @@ public class SaveUserDto{
     private String joinDate;
     private String nickname;
 
-    public SaveUserDto(String username, String password, String joinDate, String nickname) {
+    @Builder
+    public SaveUserDto(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
         this.joinDate = "test";
@@ -24,7 +26,7 @@ public class SaveUserDto{
         return User.builder()
                 .username(username)
                 .password(password)
-                .joinDate(joinDate)
+                .joinDate("test")
                 .nickname(nickname)
                 .build();
     }
