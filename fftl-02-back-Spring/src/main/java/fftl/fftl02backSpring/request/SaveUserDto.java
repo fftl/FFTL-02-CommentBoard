@@ -14,7 +14,6 @@ public class SaveUserDto{
     private String joinDate;
     private String nickname;
 
-    @Builder
     public SaveUserDto(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
