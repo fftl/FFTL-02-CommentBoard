@@ -58,7 +58,18 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req){
-        return req.getHeader("Authorization");
+        String myToken = req.getHeader("Authorization");
+        System.out.println("point2 : " + myToken);
+
+        if(myToken == null){
+            return null;
+        }
+
+        System.out.println("point2.5 : " + ("Bearer ".length()));
+        String realToken = myToken.substring("Bearer ".length());
+        System.out.println("point3 : " + realToken);
+
+        return realToken;
     }
 
     public boolean validateToken(String jwtToken){

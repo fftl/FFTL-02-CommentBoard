@@ -16,6 +16,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     public UserDetails loadUserByUsername(String username) {
-        return userRepository.findById(Long.valueOf(username)).orElseThrow();
+        return userRepository.findByUsername(username).orElseThrow();
     }
 }

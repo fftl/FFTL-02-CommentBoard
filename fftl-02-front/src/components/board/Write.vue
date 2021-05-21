@@ -87,10 +87,10 @@ export default {
       };
       console.log(this.form);
       this.$http
-        .post("http://localhost:3000/board/", this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
+        .post("http://localhost:8080/board", this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
         .then((res) => {
           console.log(res);
-          if (res.status == 201) {
+          if (res.status == 201 || res.status == 200) {
             alert("등록되었습니다.");
             this.goList();
           } else {

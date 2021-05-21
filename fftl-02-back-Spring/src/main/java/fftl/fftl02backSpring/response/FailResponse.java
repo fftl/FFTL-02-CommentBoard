@@ -3,12 +3,12 @@ package fftl.fftl02backSpring.response;
 import lombok.Getter;
 
 @Getter
-public class BasicResponse {
+public class FailResponse {
 
     private String success;
     private String msg;
 
-    public BasicResponse(String success, String msg){
+    public FailResponse(String success, String msg) {
         this.success = success;
         this.msg = msg;
     }

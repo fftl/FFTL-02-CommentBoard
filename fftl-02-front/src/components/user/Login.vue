@@ -42,11 +42,10 @@ export default {
                   username: this.username,
                   password: this.password
               }
-              alert("Test")
-              this.$http.post("http://localhost:3000/user/login/", this.form)
+              this.$http.post("http://localhost:8080/user/login", this.form)
               .then((res) => {
-                console.log(res)
-                  if(res.status == 201 && res.data != "not found.."){
+                  console.log(res)
+                  if((res.status == 201 || res.status == 200) && res.data != "not found.."){
                     this.$store.commit('setToken', res.data.access_token);
                     this.$store.commit('setLoginCheck', true);
                     this.myInfo();
@@ -62,7 +61,7 @@ export default {
             }
       }
         ,myInfo(){
-          this.$http.get("http://localhost:3000/user/profile/", { headers:{'Authorization' : 'Bearer ' + this.$store.state.token }} )
+          this.$http.get("http://localhost:8080/user/profile", { headers: {'Authorization' : 'Bearer ' + this.$store.state.token }} )
           .then((res) => {
             console.log(res);
             if(res.status == 200){
