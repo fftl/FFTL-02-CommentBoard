@@ -42,7 +42,7 @@ export default {
                 bid: this.$route.query.bid,
             }
             this.$http
-            .post("http://localhost:3000/comment/", this.form, { headers : {'Authorization':'Bearer '+ this.$store.state.token }})
+            .post("http://localhost:8080/comment/", this.form, { headers : {'Authorization':'Bearer '+ this.$store.state.token }})
             .then((res) => {
                 console.log(res);
                 alert("댓글이 등록되었습니다.");

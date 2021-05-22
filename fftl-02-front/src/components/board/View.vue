@@ -119,7 +119,7 @@ export default {
             this.bregdate = res.data.bregdate;
             this.content = res.data.content.replace(/(\n)/g, "<br/>");
             this.uid = res.data.user.uid;
-            
+
           }
           this.userCheck();
         })
@@ -133,12 +133,16 @@ export default {
     },
     getComments() {
       this.$http
-        .get("http://127.0.0.1:3000/comment/" + this.bid, {
+        .get("http://127.0.0.1:8080/comment/" + this.bid, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
           console.log(res.data);
-          this.comments = res.data;
+          if(res.data.comments){
+            this.comments = res.data.comments;
+          } else {
+            this.comments = res.data;
+          }
         })
         .catch((err) => {
           console.log(err);
