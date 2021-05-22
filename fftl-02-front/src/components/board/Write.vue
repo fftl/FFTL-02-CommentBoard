@@ -56,9 +56,6 @@ export default {
   },
   mounted() {
     this.nickname = this.$store.state.nickname;
-    console.log(this.$store.state.nickname);
-    console.log(this.$store.state.uid);
-    console.log(this.$store.state.token);
   },
   methods: {
     goList() {
@@ -85,11 +82,12 @@ export default {
         bregdate: regdate,
         uid: this.$store.state.uid
       };
-      console.log(this.form);
+
+      alert(this.form)
+      
       this.$http
         .post("http://localhost:8080/board", this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
         .then((res) => {
-          console.log(res);
           if (res.status == 201 || res.status == 200) {
             alert("등록되었습니다.");
             this.goList();

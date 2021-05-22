@@ -9,14 +9,14 @@ import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
   imports: [
-    forwardRef(() => UserModule),
+    UserModule,
     PassportModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
       signOptions: { expiresIn: '3600s' },
+      secret: jwtConstants.secret,
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, JwtService],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

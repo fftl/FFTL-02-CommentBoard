@@ -100,17 +100,27 @@ export default {
     },
     getOneBoard() {
       this.$http
-        .get("http://localhost:3000/board/" + this.bid, {
+        .get("http://localhost:8080/board/" + this.bid, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
-          this.body = res.data;
-          this.title = res.data.title;
-          this.nickname = res.data.nickname;
-          this.bregdate = res.data.bregdate;
-          this.content = res.data.content.replace(/(\n)/g, "<br/>");
-          this.uid = res.data.user.uid;
+
+          if(res.data.board){
+            this.title = res.data.board.title;
+            this.nickname = res.data.board.nickname;
+            this.bregdate = res.data.board.bregdate;
+            this.content = res.data.board.content.replace(/(\n)/g, "<br/>");
+            this.uid = res.data.board.uid;
+
+          } else {
+            this.title = res.data.title;
+            this.nickname = res.data.nickname;
+            this.bregdate = res.data.bregdate;
+            this.content = res.data.content.replace(/(\n)/g, "<br/>");
+            this.uid = res.data.user.uid;
+            
+          }
           this.userCheck();
         })
         .catch((err) => {
@@ -131,7 +141,7 @@ export default {
           this.comments = res.data;
         })
         .catch((err) => {
-          alert(err);
+          console.log(err);
         });
     }
     ,boardUpdate() {

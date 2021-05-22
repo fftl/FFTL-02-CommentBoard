@@ -35,12 +35,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginUserDto loginUserDto){
         User user = userService.findByUsername(loginUserDto.getUsername());
-
         if(user != null) {
-
-            System.out.println(user.getPassword());
-            System.out.println(loginUserDto.getPassword());
-
             if (!user.getPassword().equals(loginUserDto.getPassword())) {
                 throw new RuntimeException();
             }
@@ -56,15 +51,12 @@ public class UserController {
     public ResponseEntity<MyInfoResponse> myInfo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println("point1" + " : " + username);
         User user =  userService.findByUsername(username);
         String nickname = user.getNickname();
-        Long uid = user.getUserId();
-
+        Long uid = user.getUid();
         if(user == null){
             throw new RuntimeException();
         }
-
         return new ResponseEntity<>(new MyInfoResponse("true", "정보를 가져옵니다.", uid, username, nickname), HttpStatus.OK);
     }
 }

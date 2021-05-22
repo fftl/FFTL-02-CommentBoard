@@ -21,12 +21,6 @@
 
 //   beforeEach(async () => {
 //     const module: TestingModule = await Test.createTestingModule({
-//       imports:[
-//         JwtModule.register({
-//           secret: jwtConstants.secret,
-//           signOptions: { expiresIn: '3600s' },
-//         })
-//       ],
 //       providers: [
 //         AuthService, UserService,
 //         {provide : getRepositoryToken(User), useValue:mockRepository() }

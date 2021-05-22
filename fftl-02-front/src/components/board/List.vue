@@ -36,8 +36,12 @@ export default {
           headers: { "Authorization" : "Bearer " + this.$store.state.token },
         })
         .then((res) => {
-          console.log(res.data);
-          this.pageArray = res.data;
+          console.log(res);
+          if(res.data.boards){
+            this.pageArray = res.data.boards;  
+          } else {
+            this.pageArray = res.data;
+          }
         })
         .then((err) => {
           console.log(err);
