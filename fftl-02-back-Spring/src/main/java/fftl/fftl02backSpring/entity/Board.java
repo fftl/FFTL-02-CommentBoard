@@ -1,5 +1,6 @@
 package fftl.fftl02backSpring.entity;
 
+import fftl.fftl02backSpring.request.SaveBoardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,4 +28,8 @@ public class Board {
 
     private Long uid;
 
+    public void updateBoard(SaveBoardDto saveBoardDto){
+        this.title = saveBoardDto.getTitle();
+        this.content = saveBoardDto.getContent();
+    }
 }

@@ -19,12 +19,25 @@ public class BoardService {
         return boards;
     }
 
-    public void saveBoard(SaveBoardDto saveBoardDto){
-        boardRepository.save(saveBoardDto.toEntity());
-    }
-
     public Board getOneBoard(Long bid){
         Board board = boardRepository.findById(bid).orElseThrow();
         return board;
     }
+
+    public void saveBoard(SaveBoardDto saveBoardDto){
+        boardRepository.save(saveBoardDto.toEntity());
+    }
+
+    public void updateBoard(Long bid, SaveBoardDto saveBoardDto){
+        Board board = boardRepository.getOne(bid);
+        board.updateBoard(saveBoardDto);
+        boardRepository.save(board);
+    }
+
+    public void deleteBoard(Long bid){
+        Board board = boardRepository.findById(bid).orElseThrow();
+        boardRepository.delete(board);
+    }
+
+
 }

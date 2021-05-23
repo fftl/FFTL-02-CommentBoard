@@ -37,5 +37,4 @@ public class CommentController {
         return new ResponseEntity<>(new AllCommentsResponse("true", "모든 댓글 가져오기 성공", comments), HttpStatus.OK);
     }
 
-
 }

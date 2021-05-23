@@ -39,8 +39,15 @@ public class BoardController {
         return new ResponseEntity<>(new OneBoardResponse("true", "게시글 조회 성공", board), HttpStatus.OK);
     }
 
-//    @PutMapping("d")
-//    public String updateBoard(){
-//        return "";
-//    }
+    @PatchMapping("/{bid}")
+    public ResponseEntity<BasicResponse> updateBoard(@RequestBody SaveBoardDto saveBoardDto, @PathVariable Long bid){
+        boardService.updateBoard(bid, saveBoardDto);
+        return new ResponseEntity<>(new BasicResponse("true", "게시글 수정 성공"), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{bid}")
+    public ResponseEntity<BasicResponse> deleteBoard(@PathVariable Long bid){
+        boardService.deleteBoard(bid);
+        return new ResponseEntity<>(new BasicResponse("true", "게시글 삭제 성공"), HttpStatus.OK);
+    }
 }

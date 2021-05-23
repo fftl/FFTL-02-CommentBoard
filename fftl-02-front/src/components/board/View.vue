@@ -128,7 +128,9 @@ export default {
         });
     },
     goList() {
-      delete this.body.num;
+      // body의 용도가 생각나지 않습니다..?
+      // delete this.body.num;
+      // this.$router.push({ path: "/board/list", query: this.body });
       this.$router.push({ path: "/board/list", query: this.body });
     },
     getComments() {
@@ -161,7 +163,7 @@ export default {
         bregdate: this.bregdate,
       };
       this.$http
-        .patch("http://localhost:3000/board/" + this.bid, this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
+        .patch("http://localhost:8080/board/" + this.bid, this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
         .then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -178,7 +180,7 @@ export default {
     boardDelete() {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete("http://localhost:3000/board/" + this.bid,  { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
+          .delete("http://localhost:8080/board/" + this.bid,  { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
           .then((res) => {
             if (res.status == 200) {
               alert("삭제되었습니다.");
