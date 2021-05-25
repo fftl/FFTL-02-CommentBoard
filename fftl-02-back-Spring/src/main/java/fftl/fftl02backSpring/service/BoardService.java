@@ -24,8 +24,10 @@ public class BoardService {
         return board;
     }
 
-    public void saveBoard(SaveBoardDto saveBoardDto){
-        boardRepository.save(saveBoardDto.toEntity());
+    public final Board saveBoard(final SaveBoardDto saveBoardDto){
+        Board board = saveBoardDto.toEntity();
+
+        return boardRepository.save(board);
     }
 
     public void updateBoard(Long bid, SaveBoardDto saveBoardDto){

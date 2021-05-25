@@ -3,20 +3,14 @@ package fftl.fftl02backSpring.service;
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.request.SaveBoardDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
+import static org.mockito.Mockito.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
@@ -27,29 +21,25 @@ class BoardServiceTest {
     @Mock
     private BoardRepository boardRepository;
 
+
+//    private Board board = new Board(1L, "title", "content", "nickname","2021-12-31", 1L);
+    private SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname","2021-12-31", 1L);
+    private Board board = saveBoardDto.toEntity();
+
     @Test
     void saveBoard() {
-        String title = "제목입니다.";
-        String nickname = "작성자입니다.";
-        String content = "내용입니다.";
-        String bregdate = "2021-12-31";
-        Long uid = 1L;
-
-        List<Board> boards1 = boardService.getAllBoard();
-        int before = boards1.size();
 
         //given
-        boardService.saveBoard(new SaveBoardDto(title, nickname, content, bregdate, uid));
-        
+//        when(boardRepository.save(board)).thenReturn(board);
+        doReturn(board).when(boardRepository.save(board));
+
         //when
-        List<Board> boards2 = boardService.getAllBoard();
-        int after = boards2.size();
+        boardService.saveBoard(saveBoardDto);
 
         //then
-        assertTrue(before == 0);
-        assertTrue(after == 1);
+        verify(boardRepository).save(board);
     }
-    
+
     @Test
     void getAllBoard() {
     }

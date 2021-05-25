@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaveBoardDto {
+
     private String title;
     private String nickname;
     private String content;
