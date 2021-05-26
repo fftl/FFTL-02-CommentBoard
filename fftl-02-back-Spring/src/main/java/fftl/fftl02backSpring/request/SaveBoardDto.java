@@ -13,16 +13,16 @@ import lombok.Setter;
 public class SaveBoardDto {
 
     private String title;
-    private String nickname;
     private String content;
+    private String nickname;
     private String bregdate;
     private Long uid;
 
     public Board toEntity(){
         return Board.builder()
                 .title(title)
-                .nickname(nickname)
                 .content(content)
+                .nickname(nickname)
                 .bregdate(bregdate)
                 .uid(uid)
                 .build();

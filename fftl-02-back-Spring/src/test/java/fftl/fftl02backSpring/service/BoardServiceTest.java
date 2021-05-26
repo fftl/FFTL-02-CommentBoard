@@ -3,41 +3,35 @@ package fftl.fftl02backSpring.service;
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.request.SaveBoardDto;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
 
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-
-@ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
 
-    @InjectMocks
+    //1.
+    private BoardRepository boardRepository = Mockito.mock(BoardRepository.class);
     private BoardService boardService;
 
-    @Mock
-    private BoardRepository boardRepository;
-
-
-//    private Board board = new Board(1L, "title", "content", "nickname","2021-12-31", 1L);
-    private SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname","2021-12-31", 1L);
-    private Board board = saveBoardDto.toEntity();
+    @BeforeEach
+    public void setUp(){
+        boardService = new BoardService(boardRepository);
+    }
 
     @Test
     void saveBoard() {
-
-        //given
-//        when(boardRepository.save(board)).thenReturn(board);
-        doReturn(board).when(boardRepository.save(board));
-
-        //when
-        boardService.saveBoard(saveBoardDto);
-
-        //then
-        verify(boardRepository).save(board);
+        SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname", "2021-03-01", 1L);
+        //2.
+        when(boardRepository.save(any(Board.class))).then(returnsFirstArg());
+        Board board = boardService.saveBoard(saveBoardDto);
+        //3.
+        assertThat(board.getNickname()).isEqualTo("nickname");
     }
 
     @Test
