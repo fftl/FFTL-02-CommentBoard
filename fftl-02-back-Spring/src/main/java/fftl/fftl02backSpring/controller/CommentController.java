@@ -37,4 +37,10 @@ public class CommentController {
         return new ResponseEntity<>(new AllCommentsResponse("true", "모든 댓글 가져오기 성공", comments), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{bid}")
+    public ResponseEntity<BasicResponse> deleteComment(@PathVariable Long cid){
+        commentService.deleteComment(cid);
+        return new ResponseEntity<>(new BasicResponse("true", "댓글 삭제하기 성공"), HttpStatus.OK);
+    }
+
 }

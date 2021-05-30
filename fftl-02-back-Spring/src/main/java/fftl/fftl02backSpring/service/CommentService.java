@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,5 +27,10 @@ public class CommentService {
     public List<Comment> getAllComments(Long bid){
         List<Comment> comments = commentRepository.findByBid(bid);
         return comments;
+    }
+
+    public void deleteComment(Long cid){
+        Comment comment = commentRepository.findById(cid).orElseThrow();
+        commentRepository.delete(comment);
     }
 }

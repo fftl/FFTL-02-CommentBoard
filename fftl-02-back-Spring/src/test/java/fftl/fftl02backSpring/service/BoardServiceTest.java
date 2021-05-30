@@ -26,10 +26,16 @@ class BoardServiceTest {
 
     @Test
     void saveBoard() {
+
+        //given
         SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname", "2021-03-01", 1L);
         //2.
         when(boardRepository.save(any(Board.class))).then(returnsFirstArg());
+
+        //when
         Board board = boardService.saveBoard(saveBoardDto);
+
+        //then
         //3.
         assertThat(board.getNickname()).isEqualTo("nickname");
     }

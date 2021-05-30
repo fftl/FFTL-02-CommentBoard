@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>게시판 리스트</h2>
-    <button class="goWrite" @click="goWrite">글 작성하기</button>
+    <button class="goWrite" @click="goWrite">글 작성</button>
     <PaginatedList :listArray="pageArray" />
   </div>
 </template>
@@ -71,5 +71,8 @@ export default {
 <style scoped>
 .goWrite {
   float: right;
+  width: 5rem;
+  height: 2rem;
+  margin-bottom: 10px;
 }
 </style>

@@ -1,13 +1,15 @@
 <template>
-  <div id="app">
-    <Header />
-    
-    <div class="container"> <!-- class 추가 -->
-      <router-view />
-    </div>
+  <Header />
+  <body>
+    <div id="app">
+      
+      <div id="container"> <!-- class 추가 -->
+        <router-view />
+      </div>
 
+    </div>
     <Footer />
-  </div>
+  </body>
 </template>
 
 <script>
@@ -39,8 +41,11 @@ html,body{
 }
 h1{color:#43b984;}
 table{width:100%; border-collapse:collapse;}
-.wrap{width:100%;}
-.container{width:800px; margin:0 auto;}
+.wrap{
+  width:100%;
+  position:relative;
+}
+#container{width:800px; margin:0px auto; padding: 20px;}
 a{text-decoration:none;}
 .btn{padding:10px; background:#34445c; color:#fff;}
 </style>
