@@ -1,21 +1,20 @@
 <template>
+<div class="wrapper">
   <Header />
-  <body>
-    <div id="app">
+    <div>
       
       <div id="container"> <!-- class 추가 -->
         <router-view />
       </div>
 
     </div>
-    <Footer />
-  </body>
+  <Footer />
+</div>
 </template>
 
 <script>
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-
 
 export default {
   name: 'App',
@@ -27,11 +26,12 @@ export default {
 </script>
 
 <style>
-html,body{
-    padding:0; 
-    margin: 0 auto;
+html,body{ 
+  margin:0; padding:0; width:100%; height:100%;
   }
+
 #app {
+  width:100%; height:100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,15 +46,18 @@ table{
   width:100%; 
   border-collapse:collapse;
   }
-.wrap{
-  width:100%;
-  position:relative;
-}
+.wrapper{ 
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 0px; 
+  /* footer height */}
 #container{
+    position: relative;
+
   width:800px; 
   margin:0px auto; 
   padding: 20px; 
-  height:600px;
+  height:100%;
   }
 a{
   text-decoration:none;

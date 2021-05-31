@@ -3,9 +3,10 @@
     <p><span>{{ nickname }} : </span><input id="inputComment" type="text" v-model="comment" ref="comment" /><button @click="addComment">입력</button></p>
     <table class="comments">
         <tr v-for="c in comments" :key="c.cid">
-            <td>{{ c.nickname }} </td>
-            <td>{{ c.comment }} </td>
-            <td>{{ c.cregdate }} </td>
+            <td class="nickname">{{ c.nickname }} </td>
+            <td class="comment">{{ c.comment }} </td>
+            <td class="cregdate">{{ c.cregdate }} </td>
+            <td><button class="delete">X</button></td>
         </tr>
     </table>
 </div>
@@ -68,7 +69,12 @@ export default {
 #inputComment {
     width: 80%;
 }
-#comments {
+.comments {
     position: relative;
+    border: 1px solid;
+    margin-bottom:100px;
+}
+.comments .nickname{
+    font:bold;
 }
 </style>>

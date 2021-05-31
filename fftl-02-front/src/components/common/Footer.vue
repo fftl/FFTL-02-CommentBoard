@@ -1,7 +1,7 @@
 <template>
-	<footer>
-		<p>copyRight fftl.lee</p>
-	</footer>
+	<div id="footer">
+		<p style="margin-bottom : 0;">copyRight fftl.lee</p>
+	</div>
 </template>
 
 <script>
@@ -11,7 +11,13 @@ export default {
 </script>
 
 <style scoped>
-footer{
-	position: relative; border-top:1px solid #35495e; text-align:center; font-size:16px; color:#41b883; margin:100px 0 0 0; height: 30px;
+#footer{
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+color: white;
+background-color: #333333;
+/* margin-top:10px; */
 	}
 </style>
