@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="view">
     <h1>게시판 상세보기</h1>
     <!-- 만약 게시글을 조회한 유저가 작성자라면 -->
     <div v-if="uCheck" class="AddWrap">
@@ -236,5 +236,8 @@ export default {
 }
 .btnDelete {
   background: #f00;
+}
+#view{
+  position: relative;
 }
 </style>

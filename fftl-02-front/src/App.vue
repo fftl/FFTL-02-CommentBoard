@@ -26,7 +26,6 @@ export default {
 }
 </script>
 
-//css 수정
 <style>
 html,body{
     padding:0; 
@@ -38,14 +37,31 @@ html,body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position:static;
 }
-h1{color:#43b984;}
-table{width:100%; border-collapse:collapse;}
+h1{
+  color:#43b984;
+  }
+table{
+  width:100%; 
+  border-collapse:collapse;
+  }
 .wrap{
   width:100%;
   position:relative;
 }
-#container{width:800px; margin:0px auto; padding: 20px;}
-a{text-decoration:none;}
-.btn{padding:10px; background:#34445c; color:#fff;}
+#container{
+  width:800px; 
+  margin:0px auto; 
+  padding: 20px; 
+  height:600px;
+  }
+a{
+  text-decoration:none;
+  }
+.btn{
+  padding:10px; 
+  background:#34445c; 
+  color:#fff;
+  }
 </style>

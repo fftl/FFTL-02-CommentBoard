@@ -22,11 +22,9 @@ public class CommentController {
 
     @PostMapping("")
     public ResponseEntity<BasicResponse> addComment(@RequestBody SaveCommentDto saveCommentDto){
-
         if(!commentService.saveComment(saveCommentDto)){
             throw new RuntimeException();
         }
-
         return new ResponseEntity<>(new BasicResponse("true", "댓글 작성에 성공하였습니다."), HttpStatus.OK);
     }
 

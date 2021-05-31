@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="comments">
     <p><span>{{ nickname }} : </span><input id="inputComment" type="text" v-model="comment" ref="comment" /><button @click="addComment">입력</button></p>
     <table class="comments">
         <tr v-for="c in comments" :key="c.cid">
@@ -67,5 +67,8 @@ export default {
 
 #inputComment {
     width: 80%;
+}
+#comments {
+    position: relative;
 }
 </style>>
