@@ -1,7 +1,36 @@
-# FFTL-02-CommentBoard
+# FFTL-02-CommentBoard ( 댓글 게시판 만들기 )
 
-- 이 프로젝트는 회원과 댓글이 기능이 존재하는 게시판 만들기 입니다.
-- frontend 부분은 Vue.js 를 이용해 제작했습니다.
-- backend 부분은 nest.js, springboot 를 각각 이용하여 두 가지로 제작을 하고 있습니다.
+## 개요
+Vue.js 와 Nest.js를 이용해 만든 두번째 프로젝트 입니다. 여기에 동일한 요청으로 동작하게 되는 Springboot rest api 도 작성을 해보았습니다. 
 
-- 두 가지의 backend 서버 모두 하나의 Vue.js 서버와 호환이 되도록 만드는 것이 목표입니다.
+### 실행방법
+
+~/fftl-vue-js01
+```
+$ npm run serve
+```
+
+~/fftl-nest-js01  
+```
+npm run start:dev
+````
+
+</br>
+
+###  사용기술
+
+front  
+- Vue.js
+
+back
+- Nest.js
+    - TypeORM
+
+- Springboot
+    - JPA
+
+- MySQL
+
+### 후기
+
+이번에는 회원가입, 로그인, 댓글쓰기 기능을 추가해보았습니다. 로그인 기능에는 jwt 토큰을 사용해 보았습니다. 
