@@ -2,7 +2,7 @@
 
 ## 개요
 
-Vue.js 와 Nest.js를 이용해 만든 두번째 프로젝트 입니다. 여기에 동일한 요청으로 동작하게 되는 Springboot rest api 도 작성을 해보았습니다.
+Vue.js 와 Nest.js를 이용해 만든 두번째 프로젝트 입니다. 여기에 동일한 요청으로 동작하게 되는 Springboot rest api 도 작성을 해보았습니다. jwt 기술 내용 추가하기
 
 ### DB설계
 
