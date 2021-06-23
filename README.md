@@ -2,9 +2,15 @@
 
 ## 개요
 
-Vue.js 와 Nest.js를 이용해 만든 두번째 프로젝트 입니다. 여기에 동일한 요청으로 동작하게 되는 Springboot rest api 도 작성을 해보았습니다. jwt 기술 내용 추가하기
+Vue.js를 이용한 프론트엔드와 Nest.js, Springboot를 이용해 진행한 프로젝트 입니다. Vue.js를 이용한 프론트엔드 서버와 rest api로 데이터를 통신하며, Nest.js와 Springboot 두가지 모두 같은 요청값(?)을 가지고 있어 두가지 모두 동일하게 작동을 할 수 있도록 만들어 보았습니다.
 
 ### DB설계
+
+회원가입, 로그인 기능이 존재하며, 댓글까지 존재하는 게시판입니다. 회원, 게시글, 댓글 엔티티가 존재합니다.
+
+SpringBoot, JPA Entity
+
+Nest.Js, TypeORM
 
 ### 실행방법
 
