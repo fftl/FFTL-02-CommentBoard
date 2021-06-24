@@ -112,15 +112,18 @@ npm run start:dev
 #### front
 
 -   Vue.js
+-   JavaScript
 
 #### back
 
 -   Nest.js
 
+    -   TypeScript
     -   TypeORM
 
 -   Springboot
 
+    -   Java
     -   JPA
 
 -   Spring Security
