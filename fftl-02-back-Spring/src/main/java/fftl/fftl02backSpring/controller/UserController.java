@@ -24,7 +24,7 @@ public class UserController {
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping(value = "/saveUser")
+    @PostMapping("/saveUser")
     public ResponseEntity<BasicResponse> join(@RequestBody SaveUserDto saveUserDto){
         if (userService.saveUser(saveUserDto)){
             return new ResponseEntity<>(new BasicResponse("success", "회원가입에 성공하였습니다."), HttpStatus.OK);
