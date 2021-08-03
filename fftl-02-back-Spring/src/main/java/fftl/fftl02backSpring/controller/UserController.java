@@ -35,6 +35,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginUserDto loginUserDto){
         User user = userService.findByUsername(loginUserDto.getUsername());
+        System.out.println(loginUserDto.getUsername());
+        System.out.println(loginUserDto.getPassword());
         if(user != null) {
             if (!user.getPassword().equals(loginUserDto.getPassword())) {
                 throw new RuntimeException();
