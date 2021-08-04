@@ -11,15 +11,29 @@
           </colgroup>
           <tr>
             <th>제목</th>
-            <td><input type="text" v-model="title" ref="title"/></td>
+            <td><input type="text" v-model="title" ref="title" /></td>
           </tr>
           <tr>
             <th>작성자</th>
-            <td><input type="text" v-model="nickname" ref="nickname" readonly="readonly"/></td>
+            <td>
+              <input
+                type="text"
+                v-model="nickname"
+                ref="nickname"
+                readonly="readonly"
+              />
+            </td>
           </tr>
           <tr>
             <th>날짜</th>
-            <td><input type="text" v-model="bregdate" ref="bregdate" readonly="readonly"/></td>
+            <td>
+              <input
+                type="text"
+                v-model="bregdate"
+                ref="bregdate"
+                readonly="readonly"
+              />
+            </td>
           </tr>
           <tr>
             <th>내용</th>
@@ -28,7 +42,7 @@
         </table>
       </form>
     </div>
-  <!-- 만약 게시글을 조회한 유저가 작성자가 아니라면 -->
+    <!-- 만약 게시글을 조회한 유저가 작성자가 아니라면 -->
     <div v-else class="AddWrap">
       <form>
         <table class="tbAdd">
@@ -84,7 +98,7 @@ export default {
       bregdate: "",
       content: "",
       comments: [],
-      form:""
+      form: "",
     };
   },
   mounted() {
@@ -100,26 +114,24 @@ export default {
     },
     getOneBoard() {
       this.$http
-        .get("http://localhost:8080/board/" + this.bid, {
+        .get("https://fftl-02-springboot.herokuapp.com/board/" + this.bid, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
 
-          if(res.data.board){
+          if (res.data.board) {
             this.title = res.data.board.title;
             this.nickname = res.data.board.nickname;
             this.bregdate = res.data.board.bregdate;
             this.content = res.data.board.content.replace(/(\n)/g, "<br/>");
             this.uid = res.data.board.uid;
-
           } else {
             this.title = res.data.title;
             this.nickname = res.data.nickname;
             this.bregdate = res.data.bregdate;
             this.content = res.data.content.replace(/(\n)/g, "<br/>");
             this.uid = res.data.user.uid;
-
           }
           this.userCheck();
         })
@@ -135,12 +147,12 @@ export default {
     },
     getComments() {
       this.$http
-        .get("http://127.0.0.1:8080/comment/" + this.bid, {
+        .get("https://fftl-02-springboot.herokuapp.com/comment/" + this.bid, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
           console.log(res.data);
-          if(res.data.comments){
+          if (res.data.comments) {
             this.comments = res.data.comments;
           } else {
             this.comments = res.data;
@@ -149,8 +161,8 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    }
-    ,boardUpdate() {
+    },
+    boardUpdate() {
       if (!this.title) {
         alert("제목을 입력해 주세요");
         this.$refs.title.focus(); //방식으로 선택자를 찾는다.
@@ -163,7 +175,11 @@ export default {
         bregdate: this.bregdate,
       };
       this.$http
-        .patch("http://localhost:8080/board/" + this.bid, this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
+        .patch(
+          "https://fftl-02-springboot.herokuapp.com/board/" + this.bid,
+          this.form,
+          { headers: { Authorization: "Bearer " + this.$store.state.token } }
+        )
         .then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -180,7 +196,10 @@ export default {
     boardDelete() {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete("http://localhost:8080/board/" + this.bid,  { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
+          .delete(
+            "https://fftl-02-springboot.herokuapp.com/board/" + this.bid,
+            { headers: { Authorization: "Bearer " + this.$store.state.token } }
+          )
           .then((res) => {
             if (res.status == 200) {
               alert("삭제되었습니다.");
@@ -237,7 +256,7 @@ export default {
 .btnDelete {
   background: #f00;
 }
-#view{
+#view {
   position: relative;
 }
 </style>

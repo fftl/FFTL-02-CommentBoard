@@ -11,11 +11,18 @@
           </colgroup>
           <tr>
             <th>제목</th>
-            <td><input type="text" v-model="title" ref="title"/></td>
+            <td><input type="text" v-model="title" ref="title" /></td>
           </tr>
           <tr>
             <th>작성자</th>
-            <td><input type="text" v-model="nickname" ref="nickname" readonly="readonly"/></td>
+            <td>
+              <input
+                type="text"
+                v-model="nickname"
+                ref="nickname"
+                readonly="readonly"
+              />
+            </td>
           </tr>
           <tr>
             <th>내용</th>
@@ -27,12 +34,7 @@
 
     <div class="btnWrap">
       <a href="javascript:;" @click="goList" class="btn">목록</a>
-      <a
-        href="javascript:;"
-        @click="addBoard"
-        class="btnAdd btn"
-        >등록</a
-      >
+      <a href="javascript:;" @click="addBoard" class="btnAdd btn">등록</a>
     </div>
   </div>
 </template>
@@ -80,13 +82,15 @@ export default {
         nickname: this.nickname,
         content: this.content,
         bregdate: regdate,
-        uid: this.$store.state.uid
+        uid: this.$store.state.uid,
       };
 
-      alert(this.form)
-      
+      alert(this.form);
+
       this.$http
-        .post("http://localhost:8080/board", this.form, { headers : {'Authorization': 'Bearer ' + this.$store.state.token}})
+        .post("https://fftl-02-springboot.herokuapp.com/board", this.form, {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
+        })
         .then((res) => {
           if (res.status == 201 || res.status == 200) {
             alert("등록되었습니다.");
@@ -99,7 +103,6 @@ export default {
           console.log(err);
         });
     },
-
   },
 };
 </script>

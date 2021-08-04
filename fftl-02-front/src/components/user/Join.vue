@@ -43,18 +43,16 @@ export default {
   mounted() {},
   methods: {
     checkForm(e) {
-      
-      if(this.username == "" || this.username == null){
+      if (this.username == "" || this.username == null) {
         this.errors.push("아이디를 입력해 주세요.");
       }
       e.preventDefault();
-
-    }
-    ,goHome() {
+    },
+    goHome() {
       //리스트 화면으로 이동 함수
       this.$router.push({ path: "/", query: this.body });
-    }
-    ,saveUser() {
+    },
+    saveUser() {
       this.form = {
         username: this.username,
         password: this.password,
@@ -62,7 +60,10 @@ export default {
       };
 
       this.$http
-        .post("http://localhost:8080/user/saveUser", this.form)
+        .post(
+          "https://fftl-02-springboot.herokuapp.com/user/saveUser",
+          this.form
+        )
         .then((res) => {
           console.log(res);
           alert("회원가입에 성공했습니다.");

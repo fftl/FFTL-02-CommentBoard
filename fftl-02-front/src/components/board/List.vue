@@ -32,13 +32,13 @@ export default {
     },
     getList() {
       this.$http
-        .get("http://127.0.0.1:8080/board/", {
-          headers: { "Authorization" : "Bearer " + this.$store.state.token },
+        .get("https://fftl-02-springboot.herokuapp.com/board/", {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
-          if(res.data.boards){
-            this.pageArray = res.data.boards;  
+          if (res.data.boards) {
+            this.pageArray = res.data.boards;
           } else {
             this.pageArray = res.data;
           }
@@ -49,21 +49,23 @@ export default {
     },
     goWrite() {
       this.$router.push({ path: "./write" }); //추가한 상세페이지 라우터
-    }
-    ,myInfo(){
-          this.$http.get("http://localhost:8080/user/profile", { headers: {'Authorization' : 'Bearer ' + this.$store.state.token }} )
-          .then((res) => {
-            if(res.status == 200){
-              console.log(res);
-              this.$store.commit('setNickname', res.data.nickname);
-              this.$store.commit('setUid', res.data.uid);
-            }
-          })
-          .catch((err) =>{
-            alert(err);
-          })
-
-        }
+    },
+    myInfo() {
+      this.$http
+        .get("https://fftl-02-springboot.herokuapp.com/user/profile", {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            console.log(res);
+            this.$store.commit("setNickname", res.data.nickname);
+            this.$store.commit("setUid", res.data.uid);
+          }
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    },
   },
 };
 </script>

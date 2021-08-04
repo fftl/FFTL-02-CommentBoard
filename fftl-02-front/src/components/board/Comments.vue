@@ -1,15 +1,23 @@
 <template>
-<div id="comments">
-    <p><span>{{ nickname }} : </span><input id="inputComment" type="text" v-model="comment" ref="comment" /><button @click="addComment">입력</button></p>
+  <div id="comments">
+    <p>
+      <span>{{ nickname }} : </span
+      ><input
+        id="inputComment"
+        type="text"
+        v-model="comment"
+        ref="comment"
+      /><button @click="addComment">입력</button>
+    </p>
     <table class="comments">
-        <tr v-for="c in comments" :key="c.cid">
-            <td class="nickname">{{ c.nickname }} </td>
-            <td class="comment">{{ c.comment }} </td>
-            <td class="cregdate">{{ c.cregdate }} </td>
-            <td><button class="delete">X</button></td>
-        </tr>
+      <tr v-for="c in comments" :key="c.cid">
+        <td class="nickname">{{ c.nickname }}</td>
+        <td class="comment">{{ c.comment }}</td>
+        <td class="cregdate">{{ c.cregdate }}</td>
+        <td><button class="delete">X</button></td>
+      </tr>
     </table>
-</div>
+  </div>
 </template>
 <script>
 let today = new Date();
@@ -19,62 +27,66 @@ let date = today.getDate(); // 날짜
 
 let cregdate = year + "-" + month + "-" + date;
 export default {
-    data(){
-        return{
-            nickname:"",
-            comment:"",
-            bid:this.$route.query.bid,
-            form:""
-        }
+  data() {
+    return {
+      nickname: "",
+      comment: "",
+      bid: this.$route.query.bid,
+      form: "",
+    };
+  },
+  mounted() {
+    this.nickname = this.$store.state.nickname;
+  },
+  props: {
+    commentsArray: Array,
+  },
+  methods: {
+    addComment() {
+      this.form = {
+        nickname: this.nickname,
+        comment: this.comment,
+        cregdate: cregdate,
+        uid: this.$store.state.uid,
+        bid: this.$route.query.bid,
+      };
+      this.$http
+        .post("https://fftl-02-springboot.herokuapp.com/comment/", this.form, {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
+        })
+        .then((res) => {
+          console.log(res);
+          alert("댓글이 등록되었습니다.");
+          this.$router.push({
+            redirect: "/board/view/",
+            query: { bid: this.bid },
+          });
+          console.log("Test");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    mounted(){
-        this.nickname = this.$store.state.nickname;
+  },
+  // 종속 대상이 변경될 때마다 함수를 실행합니다.
+  // 변경되지 않을 경우에는 실행되지 않습니다.
+  computed: {
+    comments() {
+      return this.commentsArray;
     },
-    props: {
-        commentsArray: Array,
-    },
-    methods:{
-        addComment(){
-            this.form = {
-                nickname: this.nickname,
-                comment: this.comment,
-                cregdate: cregdate,
-                uid: this.$store.state.uid,
-                bid: this.$route.query.bid,
-            }
-            this.$http
-            .post("http://localhost:8080/comment/", this.form, { headers : {'Authorization':'Bearer '+ this.$store.state.token }})
-            .then((res) => {
-                console.log(res);
-                alert("댓글이 등록되었습니다.");
-                this.$router.push({ redirect : "/board/view/", query: { bid: this.bid } });
-                console.log("Test");
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }
-    },
-    // 종속 대상이 변경될 때마다 함수를 실행합니다.
-    // 변경되지 않을 경우에는 실행되지 않습니다.
-    computed:{
-        comments(){
-            return this.commentsArray;
-        }
-    }
-}
+  },
+};
 </script>
 <style scoped>
-
 #inputComment {
-    width: 80%;
+  width: 80%;
 }
 .comments {
-    position: relative;
-    border: 1px solid;
-    margin-bottom:100px;
+  position: relative;
+  border: 1px solid;
+  margin-bottom: 100px;
 }
-.comments .nickname{
-    font:bold;
+.comments .nickname {
+  font: bold;
 }
 </style>>

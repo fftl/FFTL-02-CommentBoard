@@ -59,7 +59,10 @@ export default {
         };
         console.log(this.form);
         this.$http
-          .post("http://localhost:8080/user/login", this.form)
+          .post(
+            "https://fftl-02-springboot.herokuapp.com/user/login",
+            this.form
+          )
           .then((res) => {
             console.log(res);
             if (
@@ -83,7 +86,7 @@ export default {
     },
     myInfo() {
       this.$http
-        .get("http://localhost:8080/user/profile", {
+        .get("https://fftl-02-springboot.herokuapp.com/user/profile", {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
