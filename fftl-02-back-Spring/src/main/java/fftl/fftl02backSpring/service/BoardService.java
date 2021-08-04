@@ -20,7 +20,7 @@ public class BoardService {
     }
 
     public Board getOneBoard(Long bid){
-        Board board = boardRepository.findById(bid).orElseThrow();
+        Board board = boardRepository.findById(bid).get();
         return board;
     }
 
@@ -37,7 +37,7 @@ public class BoardService {
     }
 
     public void deleteBoard(Long bid){
-        Board board = boardRepository.findById(bid).orElseThrow();
+        Board board = boardRepository.findById(bid).get();
         boardRepository.delete(board);
     }
 

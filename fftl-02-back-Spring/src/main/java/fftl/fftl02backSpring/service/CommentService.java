@@ -30,7 +30,7 @@ public class CommentService {
     }
 
     public void deleteComment(Long cid){
-        Comment comment = commentRepository.findById(cid).orElseThrow();
+        Comment comment = commentRepository.findById(cid).get();
         commentRepository.delete(comment);
     }
 }
