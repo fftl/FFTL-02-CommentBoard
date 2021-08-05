@@ -1,4 +1,6 @@
-# FFTL-02-CommentBoard ( 댓글 게시판 만들기 )
+# FFTL-02-CommentBoard <댓글 게시판 만들기>
+
+[FFTL-02-CommentBoard](https://fftl-02-front.herokuapp.com/)을 통해서 확인해 볼 수 있습니다!
 
 > 목차
 
@@ -12,8 +14,6 @@
 ### 개요
 
 Vue.js를 이용한 프론트엔드와 Nest.js, Springboot를 이용해 진행한 프로젝트 입니다. Vue.js를 이용한 프론트엔드 서버와 rest api로 데이터를 통신하며, Nest.js와 Springboot 두가지 모두 같은 요청값(?)을 가지고 있어 두가지 모두 동일하게 작동을 할 수 있도록 만들어 보았습니다.
-
-현재 이 fftl-02-CommentBoard를 Heroku를 이용하여 배포되어 있습니다. https://fftl-02-front.herokuapp.com/
 
 ### DB설계
 
