@@ -22,6 +22,7 @@ export default {
     this.loginCheck();
     this.getList();
     // this.myInfo();
+    //
   },
   methods: {
     loginCheck() {
