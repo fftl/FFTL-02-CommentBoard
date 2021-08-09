@@ -33,7 +33,7 @@ export default {
     },
     getList() {
       this.$http
-        .get("https://fftl-02-springboot.herokuapp.com/board/", {
+        .get("http://127.0.0.1:8080/board/", {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
@@ -53,7 +53,7 @@ export default {
     },
     myInfo() {
       this.$http
-        .get("https://fftl-02-springboot.herokuapp.com/user/profile", {
+        .get("http://127.0.0.1:8080/user/profile", {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {

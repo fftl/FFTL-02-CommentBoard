@@ -23,16 +23,13 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uid;
 
     private String username;
     private String password;
     private String joinDate;
     private String nickname;
-
-    //private List<Comment> Comments = new ArrayList<>();
-    //private List<Board> Boards = new ArrayList<>();
 
     //인증관련===========================================================================================================
     @ElementCollection(fetch = FetchType.EAGER)

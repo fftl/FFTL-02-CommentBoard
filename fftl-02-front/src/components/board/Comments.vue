@@ -14,7 +14,7 @@
         <td class="nickname">{{ c.nickname }}</td>
         <td class="comment">{{ c.comment }}</td>
         <td class="cregdate">{{ c.cregdate }}</td>
-        <td><button class="delete">X</button></td>
+        <td><a @click="deleteComment(c.cid)" class="deleteComment">X</a></td>
       </tr>
     </table>
   </div>
@@ -51,23 +51,42 @@ export default {
         bid: this.$route.query.bid,
       };
       this.$http
-        .post("https://fftl-02-springboot.herokuapp.com/comment/", this.form, {
+        .post("http://127.0.0.1:8080/comment/", this.form, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
           alert("댓글이 등록되었습니다.");
-          this.$router.push({
-            redirect: "/board/view/",
-            query: { bid: this.bid },
-          });
-          console.log("Test");
+          window.location.reload();
         })
         .catch((err) => {
           console.log(err);
         });
     },
+
+    deleteComment(cid) {
+      if (confirm("정말 삭제하시겠습니까?") == true) {
+        this.$http
+          .delete("http://127.0.0.1:8080/comment/" + cid, {
+            headers: { Authorization: "Bearer " + this.$store.state.token },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              alert("삭제되었습니다.");
+              window.location.reload();
+            } else {
+              alert("실행중 실패했습니다.\n다시 이용해 주세요");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        return;
+      }
+    },
   },
+
   // 종속 대상이 변경될 때마다 함수를 실행합니다.
   // 변경되지 않을 경우에는 실행되지 않습니다.
   computed: {
@@ -88,5 +107,12 @@ export default {
 }
 .comments .nickname {
   font: bold;
+}
+.deleteComment {
+  font-size: 12px;
+  padding: 5px;
+  background: red;
+  color: #fff;
+  cursor: pointer;
 }
 </style>>

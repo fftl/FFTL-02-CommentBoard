@@ -88,6 +88,7 @@ export default {
   components: {
     Comments,
   },
+
   data() {
     return {
       uCheck: false,
@@ -101,10 +102,12 @@ export default {
       form: "",
     };
   },
+
   mounted() {
     this.getOneBoard();
     this.getComments();
   },
+  
   methods: {
     //유저가 작성자인지 아닌지 확인합니다.
     userCheck() {
@@ -112,9 +115,10 @@ export default {
         this.uCheck = true;
       }
     },
+
     getOneBoard() {
       this.$http
-        .get("https://fftl-02-springboot.herokuapp.com/board/" + this.bid, {
+        .get("http://127.0.0.1:8080/board/" + this.bid, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
@@ -139,15 +143,16 @@ export default {
           console.log(err);
         });
     },
+
     goList() {
-      // body의 용도가 생각나지 않습니다..?
       // delete this.body.num;
       // this.$router.push({ path: "/board/list", query: this.body });
       this.$router.push({ path: "/board/list", query: this.body });
     },
+
     getComments() {
       this.$http
-        .get("https://fftl-02-springboot.herokuapp.com/comment/" + this.bid, {
+        .get("http://127.0.0.1:8080/comment/" + this.bid, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
@@ -162,6 +167,7 @@ export default {
           console.log(err);
         });
     },
+
     boardUpdate() {
       if (!this.title) {
         alert("제목을 입력해 주세요");
@@ -175,11 +181,9 @@ export default {
         bregdate: this.bregdate,
       };
       this.$http
-        .patch(
-          "https://fftl-02-springboot.herokuapp.com/board/" + this.bid,
-          this.form,
-          { headers: { Authorization: "Bearer " + this.$store.state.token } }
-        )
+        .patch("http://127.0.0.1:8080/board/" + this.bid, this.form, {
+          headers: { Authorization: "Bearer " + this.$store.state.token },
+        })
         .then((res) => {
           console.log(res);
           if (res.status == 200) {
@@ -193,13 +197,13 @@ export default {
           console.log(err);
         });
     },
+
     boardDelete() {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete(
-            "https://fftl-02-springboot.herokuapp.com/board/" + this.bid,
-            { headers: { Authorization: "Bearer " + this.$store.state.token } }
-          )
+          .delete("http://127.0.0.1:8080/board/" + this.bid, {
+            headers: { Authorization: "Bearer " + this.$store.state.token },
+          })
           .then((res) => {
             if (res.status == 200) {
               alert("삭제되었습니다.");

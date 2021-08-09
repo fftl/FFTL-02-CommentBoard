@@ -85,10 +85,8 @@ export default {
         uid: this.$store.state.uid,
       };
 
-      alert(this.form);
-
       this.$http
-        .post("https://fftl-02-springboot.herokuapp.com/board", this.form, {
+        .post("http://127.0.0.1:8080/board", this.form, {
           headers: { Authorization: "Bearer " + this.$store.state.token },
         })
         .then((res) => {
