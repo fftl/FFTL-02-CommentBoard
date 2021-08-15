@@ -84,7 +84,6 @@ export default {
         bregdate: regdate,
         uid: this.$store.state.uid,
       };
-
       this.$http
         .post("http://127.0.0.1:8080/board", this.form, {
           headers: { Authorization: "Bearer " + this.$store.state.token },

@@ -25,8 +25,4 @@ public class AdviceController {
         return new ResponseEntity(new FailResponse("fail", "알 수 없는 오류입니다."), HttpStatus.OK);
     }
 
-
-
-
-
 }

@@ -46,7 +46,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-fftl-02-back-Spring/src/main/resources/application.properties
+**/application.properties
 
 ### STS ###
 .apt_generated

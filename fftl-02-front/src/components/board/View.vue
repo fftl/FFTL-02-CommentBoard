@@ -107,7 +107,7 @@ export default {
     this.getOneBoard();
     this.getComments();
   },
-  
+
   methods: {
     //유저가 작성자인지 아닌지 확인합니다.
     userCheck() {

@@ -70,38 +70,43 @@ export default {
     };
   },
   mounted() {},
-
   methods: {
     checkId() {
-      console.log("checkId()");
-      this.$http
-        .post("http://127.0.0.1:8080/user/checkId?username=" + this.username)
-        .then((res) => {
-          if (res.data.statusCode == 200) {
-            confirm("사용할 수 있는 아이디입니다.");
-            this.usernameCheck = true;
-          } else {
-            alert("중복된 아이디 입니다.");
-            this.usernameCheck = false;
-          }
-        });
+      if (this.username == "" || this.username == null) {
+        alert("아이디를 입력해 주세요.");
+      } else {
+        this.$http
+          .post("http://127.0.0.1:8080/user/checkId?username=" + this.username)
+          .then((res) => {
+            if (res.data.statusCode == 200) {
+              confirm("사용할 수 있는 아이디입니다.");
+              this.usernameCheck = true;
+            } else {
+              alert("중복된 아이디 입니다.");
+              this.usernameCheck = false;
+            }
+          });
+      }
     },
 
     checkNickname() {
-      console.log("checkNickname()");
-      this.$http
-        .post(
-          "http://127.0.0.1:8080/user/checkNickname?nickname=" + this.nickname
-        )
-        .then((res) => {
-          if (res.data.statusCode == 200) {
-            alert("사용할 수 있는 닉네임입니다.");
-            this.nicknameCheck = true;
-          } else {
-            alert("중복된 닉네임 입니다.");
-            this.nicknameCheck = false;
-          }
-        });
+      if (this.nickname == "" || this.nickname == null) {
+        alert("닉네임을 입력해주세요.");
+      } else {
+        this.$http
+          .post(
+            "http://127.0.0.1:8080/user/checkNickname?nickname=" + this.nickname
+          )
+          .then((res) => {
+            if (res.data.statusCode == 200) {
+              alert("사용할 수 있는 닉네임입니다.");
+              this.nicknameCheck = true;
+            } else {
+              alert("중복된 닉네임 입니다.");
+              this.nicknameCheck = false;
+            }
+          });
+      }
     },
 
     checkForm() {
@@ -111,6 +116,8 @@ export default {
         alert("아이디를 입력해 주세요.");
       } else if (!this.usernameCheck) {
         alert("아이디 중복확인을 해주세요.");
+      } else if (this.password == "" || this.password == null) {
+        alert("비밀번호를 입력해 주세요.");
       } else if (!this.nicknameCheck) {
         alert("닉네임 중복확인을 해주세요.");
       } else {
