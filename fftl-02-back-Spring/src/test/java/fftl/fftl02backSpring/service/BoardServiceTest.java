@@ -9,6 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -33,12 +36,25 @@ class BoardServiceTest {
         //when
         Board board = boardService.saveBoard(saveBoardDto);
 
+
         //then
         assertThat(board.getNickname()).isEqualTo("nickname");
     }
 
     @Test
     void getAllBoard() {
+
+        //given
+        List<Board> boards = new ArrayList<>();
+        Board board1 = Board.builder().title("제목!").bregdate("2021-03-01").content("내용입니다!").nickname("작성자에요!").bid(1L).uid(1L).build();
+        boards.add(board1);
+        given(boardRepository.findAll()).willReturn(boards);
+
+        //when
+        List<Board> findAll = boardService.getAllBoard();
+
+        //then
+        assertThat(findAll.get(0).getNickname()).isEqualTo(board1.getNickname());
 
     }
 
