@@ -5,6 +5,7 @@ import fftl.fftl02backSpring.repository.UserRepository;
 import fftl.fftl02backSpring.request.SaveUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -12,6 +13,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public boolean saveUser(SaveUserDto saveUserDto){
         User user = userRepository.save(saveUserDto.toEntity());
 

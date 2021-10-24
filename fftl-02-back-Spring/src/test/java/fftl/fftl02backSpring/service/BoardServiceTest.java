@@ -3,43 +3,43 @@ package fftl.fftl02backSpring.service;
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.request.SaveBoardDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+
 
 @ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
 
-    private BoardRepository boardRepository = Mockito.mock(BoardRepository.class);
+    @InjectMocks
     private BoardService boardService;
 
-    @BeforeEach
-    void init() {
-        boardService = new BoardService(boardRepository);
-    }
+    @Mock
+    private BoardRepository boardRepository;
 
-     @Test
+    @Test
     void saveBoard() {
-        SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname", "2021-03-01", 1L);
 
-//        //2.
-//        when(boardRepository.save(any(Board.class))).then(returnsFirstArg());
-//        Board board = boardService.saveBoard(saveBoardDto);
-//
-//        //3.
-//        assertThat(board.getNickname()), is(equalTo("nickname"));
+        //given
+        SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname", "2021-03-01", 1L);
+        given(boardRepository.save(any())).willReturn(saveBoardDto.toEntity());
+
+        //when
+        Board board = boardService.saveBoard(saveBoardDto);
+
+        //then
+        assertThat(board.getNickname()).isEqualTo("nickname");
     }
 
     @Test
     void getAllBoard() {
+
     }
 
     @Test
