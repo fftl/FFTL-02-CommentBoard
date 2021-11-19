@@ -33,20 +33,20 @@ public class BoardController {
     }
 
     @GetMapping("/{bid}")
-    public ResponseEntity<OneBoardResponse> getOneBoard(@PathVariable Long bid){
-        Board board = boardService.getOneBoard(bid);
+    public ResponseEntity<OneBoardResponse> getOneBoard(@PathVariable Long board_id){
+        Board board = boardService.getOneBoard(board_id);
         return new ResponseEntity<>(new OneBoardResponse("true", "게시글 조회 성공", board), HttpStatus.OK);
     }
 
     @PatchMapping("/{bid}")
-    public ResponseEntity<BasicResponse> updateBoard(@RequestBody SaveBoardDto saveBoardDto, @PathVariable Long bid){
-        boardService.updateBoard(bid, saveBoardDto);
+    public ResponseEntity<BasicResponse> updateBoard(@RequestBody SaveBoardDto saveBoardDto, @PathVariable Long board_id){
+        boardService.updateBoard(board_id, saveBoardDto);
         return new ResponseEntity<>(new BasicResponse("true", "게시글 수정 성공"), HttpStatus.OK);
     }
 
     @DeleteMapping("/{bid}")
-    public ResponseEntity<BasicResponse> deleteBoard(@PathVariable Long bid){
-        boardService.deleteBoard(bid);
+    public ResponseEntity<BasicResponse> deleteBoard(@PathVariable Long board_id){
+        boardService.deleteBoard(board_id);
         return new ResponseEntity<>(new BasicResponse("true", "게시글 삭제 성공"), HttpStatus.OK);
     }
 }

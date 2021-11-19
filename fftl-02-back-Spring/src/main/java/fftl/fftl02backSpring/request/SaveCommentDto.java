@@ -12,26 +12,21 @@ public class SaveCommentDto {
 
     private String nickname;
     private String comment;
-    private String cregdate;
+    private String regdate;
+    private Long user_id;
+    private Long board_id;
 
-    private Long bid;
-    private Long uid;
-
-    public SaveCommentDto(String nickname, String comment, String cregdate, Long bid, Long uid) {
+    public SaveCommentDto(String nickname, String comment, String regdate) {
         this.nickname = nickname;
         this.comment = comment;
-        this.cregdate = cregdate;
-        this.bid = bid;
-        this.uid = uid;
+        this.regdate = regdate;
     }
 
     public Comment toEntity(){
         return Comment.builder()
                 .nickname(nickname)
                 .comment(comment)
-                .cregdate(cregdate)
-                .uid(uid)
-                .bid(bid)
+                .regdate(regdate)
                 .build();
     }
 }

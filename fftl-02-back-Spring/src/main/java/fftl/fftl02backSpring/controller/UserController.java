@@ -80,10 +80,10 @@ public class UserController {
         String username = authentication.getName();
         User user =  userService.findByUsername(username);
         String nickname = user.getNickname();
-        Long uid = user.getUid();
+        Long user_id = user.getId();
         if(user == null){
             throw new RuntimeException();
         }
-        return new ResponseEntity<>(new MyInfoResponse("true", "정보를 가져옵니다.", uid, username, nickname), HttpStatus.OK);
+        return new ResponseEntity<>(new MyInfoResponse("true", "정보를 가져옵니다.", user_id, username, nickname), HttpStatus.OK);
     }
 }

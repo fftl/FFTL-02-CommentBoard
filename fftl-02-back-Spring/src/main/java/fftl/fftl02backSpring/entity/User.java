@@ -24,15 +24,18 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Long uid;
+    private Long id;
 
     private String username;
     private String password;
     private String joinDate;
     private String nickname;
 
-    //private List<Comment> Comments = new ArrayList<>();
-    //private List<Board> Boards = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Board> boards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    List<Comment> comments = new ArrayList<>();
 
     //인증관련===========================================================================================================
     @ElementCollection(fetch = FetchType.EAGER)

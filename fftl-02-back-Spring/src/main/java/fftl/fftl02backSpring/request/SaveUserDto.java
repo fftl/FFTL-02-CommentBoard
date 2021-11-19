@@ -17,7 +17,7 @@ public class SaveUserDto{
     public SaveUserDto(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
-        this.joinDate = "test";
+        this.joinDate = "time";
         this.nickname = nickname;
     }
 
@@ -25,7 +25,7 @@ public class SaveUserDto{
         return User.builder()
                 .username(username)
                 .password(password)
-                .joinDate("test")
+                .joinDate("time")
                 .nickname(nickname)
                 .build();
     }

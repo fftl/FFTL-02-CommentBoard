@@ -6,9 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -19,14 +19,19 @@ public class Board {
 
     @GeneratedValue
     @Id
-    private Long bid;
+    private Long id;
 
     private String title;
     private String content;
     private String nickname;
     private String bregdate;
 
-    private Long uid;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "board")
+    List<Comment> comments = new ArrayList<>();
 
     public void updateBoard(SaveBoardDto saveBoardDto){
         this.title = saveBoardDto.getTitle();

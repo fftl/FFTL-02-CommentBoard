@@ -20,8 +20,8 @@ public class BoardService {
         return boards;
     }
 
-    public Board getOneBoard(Long bid){
-        Board board = boardRepository.findById(bid).get();
+    public Board getOneBoard(Long board_id){
+        Board board = boardRepository.findById(board_id).get();
         return board;
     }
 
@@ -33,15 +33,15 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(Long bid, SaveBoardDto saveBoardDto){
-        Board board = boardRepository.getOne(bid);
+    public void updateBoard(Long board_id, SaveBoardDto saveBoardDto){
+        Board board = boardRepository.getOne(board_id);
         board.updateBoard(saveBoardDto);
         boardRepository.save(board);
     }
 
     @Transactional
-    public void deleteBoard(Long bid){
-        Board board = boardRepository.findById(bid).get();
+    public void deleteBoard(Long board_id){
+        Board board = boardRepository.findById(board_id).get();
         boardRepository.delete(board);
     }
 

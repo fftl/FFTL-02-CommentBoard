@@ -35,8 +35,8 @@ class BoardServiceTest {
     @BeforeEach
     void init() {
         boards = new ArrayList<>();
-        board1 = Board.builder().title("제목!").bregdate("2021-03-01").content("내용입니다!").nickname("작성자에요!").bid(1L).uid(1L).build();
-        board2 = Board.builder().title("제목222").bregdate("2021-03-02").content("내용입니다!").nickname("작성자22!").bid(2L).uid(2L).build();
+        board1 = Board.builder().title("제목!").bregdate("2021-03-01").content("내용입니다!").nickname("작성자에요!").build();
+        board2 = Board.builder().title("제목222").bregdate("2021-03-02").content("내용입니다!").nickname("작성자22!").build();
 
         boards.add(board1);
         boards.add(board2);

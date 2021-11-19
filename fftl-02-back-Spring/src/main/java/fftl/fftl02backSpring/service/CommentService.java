@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,8 +25,8 @@ public class CommentService {
         return false;
     }
 
-    public List<Comment> getAllComments(Long bid){
-        List<Comment> comments = commentRepository.findByBid(bid);
+    public List<Comment> getAllComments(Long board_id){
+        List<Comment> comments = commentRepository.findByBid(board_id);
         return comments;
     }
 

@@ -15,16 +15,16 @@ public class SaveBoardDto {
     private String title;
     private String content;
     private String nickname;
-    private String bregdate;
-    private Long uid;
+    private String regdate;
+    private Long user_id;
+
 
     public Board toEntity(){
         return Board.builder()
                 .title(title)
                 .content(content)
                 .nickname(nickname)
-                .bregdate(bregdate)
-                .uid(uid)
+                .bregdate(regdate)
                 .build();
     }
 }

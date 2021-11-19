@@ -29,15 +29,15 @@ public class CommentController {
     }
 
     @GetMapping("/{bid}")
-    public ResponseEntity<AllCommentsResponse> getAllComment(@PathVariable Long bid){
-        List<Comment> comments = commentService.getAllComments(bid);
+    public ResponseEntity<AllCommentsResponse> getAllComment(@PathVariable Long board_id){
+        List<Comment> comments = commentService.getAllComments(board_id);
 
         return new ResponseEntity<>(new AllCommentsResponse("true", "모든 댓글 가져오기 성공", comments), HttpStatus.OK);
     }
 
     @DeleteMapping("/{cid}")
-    public ResponseEntity<BasicResponse> deleteComment(@PathVariable Long cid){
-        commentService.deleteComment(cid);
+    public ResponseEntity<BasicResponse> deleteComment(@PathVariable Long comment_id){
+        commentService.deleteComment(comment_id);
         return new ResponseEntity<>(new BasicResponse("true", "댓글 삭제하기 성공"), HttpStatus.OK);
     }
 
