@@ -1,0 +1,20 @@
+{
+  "name": "fftl-02-CommentBoard",
+  "version": "1.0.0",
+  "description": "[FFTL-02-CommentBoard](https://fftl-02-front.herokuapp.com/)을 통해서 확인해 볼 수 있습니다!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fftl/FFTL-02-CommentBoard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fftl/FFTL-02-CommentBoard/issues"
+  },
+  "homepage": "https://github.com/fftl/FFTL-02-CommentBoard#readme"
+}
