@@ -57,6 +57,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.$store.state.nickname);
     this.nickname = this.$store.state.nickname;
   },
   methods: {
