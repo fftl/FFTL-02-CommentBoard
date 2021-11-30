@@ -5,6 +5,7 @@ import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.request.SaveBoardDto;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,11 @@ import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
+=======
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+>>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -27,11 +33,14 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+=======
+>>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 =======
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 
@@ -43,6 +52,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     @InjectMocks
@@ -66,6 +76,8 @@ class BoardServiceTest {
 =======
 =======
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
+=======
+>>>>>>> parent of 2cbe73d... 211018,2329, testing code study
     //1.
     private BoardRepository boardRepository = Mockito.mock(BoardRepository.class);
     private BoardService boardService;
@@ -74,6 +86,9 @@ class BoardServiceTest {
     public void setUp(){
         boardService = new BoardService(boardRepository);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 2cbe73d... 211018,2329, testing code study
+=======
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 =======
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
@@ -86,7 +101,12 @@ class BoardServiceTest {
         SaveBoardDto saveBoardDto = new SaveBoardDto("title", "content", "nickname", "2021-03-01", 1L);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         given(boardRepository.save(any())).willReturn(saveBoardDto.toEntity());
+=======
+        //2.
+        when(boardRepository.save(any(Board.class))).then(returnsFirstArg());
+>>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 =======
         //2.
         when(boardRepository.save(any(Board.class))).then(returnsFirstArg());
@@ -102,6 +122,10 @@ class BoardServiceTest {
         //then
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        //3.
+>>>>>>> parent of 2cbe73d... 211018,2329, testing code study
 =======
         //3.
 >>>>>>> parent of 2cbe73d... 211018,2329, testing code study
