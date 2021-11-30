@@ -14,6 +14,5 @@ public class ResponseMessage {
     public static final String SAME_ID = "중복되는 아이디";
     public static final String SAME_NICKNAME = "중복되는 닉네임";
     public static final String NOT_FOUND_BOARD = "중복되는 아이디";
-    public static final String JOIN_FAIL = "회원가입 실패";
 
 }

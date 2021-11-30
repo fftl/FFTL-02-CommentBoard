@@ -21,6 +21,8 @@ export default {
   mounted() {
     this.loginCheck();
     this.getList();
+    // this.myInfo();
+    //
   },
   methods: {
     loginCheck() {
