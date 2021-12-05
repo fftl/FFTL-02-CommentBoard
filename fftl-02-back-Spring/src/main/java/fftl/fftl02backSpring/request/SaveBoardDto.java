@@ -1,6 +1,7 @@
 package fftl.fftl02backSpring.request;
 
 import fftl.fftl02backSpring.entity.Board;
+import fftl.fftl02backSpring.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,15 @@ public class SaveBoardDto {
     private String nickname;
     private String regdate;
     private Long user_id;
-
+    private User user;
 
     public Board toEntity(){
         return Board.builder()
                 .title(title)
                 .content(content)
                 .nickname(nickname)
-                .bregdate(regdate)
+                .regdate(regdate)
+                .user(user)
                 .build();
     }
 }

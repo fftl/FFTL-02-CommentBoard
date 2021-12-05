@@ -8,12 +8,12 @@ public class MyInfoResponse {
 
     private String success;
     private String msg;
-    private Long uid;
+    private Long user_id;
     private String username;
     private String nickname;
 
-    public MyInfoResponse(String success, String msg, Long uid, String username, String nickname) {
-        this.uid = uid;
+    public MyInfoResponse(String success, String msg, Long user_id, String username, String nickname) {
+        this.user_id = user_id;
         this.success = success;
         this.msg = msg;
         this.username = username;

@@ -2,7 +2,6 @@ package fftl.fftl02backSpring.advice;
 
 import fftl.fftl02backSpring.advice.errors.SameDataExists;
 import fftl.fftl02backSpring.response.DefaultResponse;
-import fftl.fftl02backSpring.response.FailResponse;
 import fftl.fftl02backSpring.response.ResponseMessage;
 import fftl.fftl02backSpring.response.StatusCode;
 import lombok.RequiredArgsConstructor;

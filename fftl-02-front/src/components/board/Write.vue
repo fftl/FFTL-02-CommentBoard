@@ -78,19 +78,21 @@ export default {
       }
 
       this.form = {
-        //backend로 전송될 POST 데이터
         title: this.title,
         nickname: this.nickname,
         content: this.content,
-        bregdate: regdate,
-        uid: this.$store.state.uid,
+        regdate: regdate,
+        user_id: this.$store.state.user_id,
       };
+
       this.$http
         .post("http://127.0.0.1:8080/board", this.form, {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
+          console.log(this.form);
           if (res.status == 201 || res.status == 200) {
+            console.log(res);
             alert("등록되었습니다.");
             this.goList();
           } else {

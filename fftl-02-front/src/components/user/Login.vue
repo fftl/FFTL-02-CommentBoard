@@ -44,7 +44,7 @@ export default {
       this.$router.push({ path: "/" });
     },
     //로그인하여 토큰 정보를 store 에 담는다.
-    //uid 와 nickname도 사용하기 쉽게 담아보자.
+    //user_id 와 nickname도 사용하기 쉽게 담아보자.
     login() {
       if (!this.username) {
         alert("아이디를 입력해 주세요.");
@@ -84,13 +84,14 @@ export default {
     myInfo() {
       this.$http
         .get("http://127.0.0.1:8080/user/profile", {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
+          console.log(res);
           if (res.status == 200) {
             this.$store.commit("setNickname", res.data.nickname);
-            this.$store.commit("setUid", res.data.uid);
+            this.$store.commit("setUser_id", res.data.user_id);
           }
         })
         .catch((err) => {

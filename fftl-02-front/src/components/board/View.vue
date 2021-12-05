@@ -29,8 +29,8 @@
             <td>
               <input
                 type="text"
-                v-model="bregdate"
-                ref="bregdate"
+                v-model="regdate"
+                ref="regdate"
                 readonly="readonly"
               />
             </td>
@@ -60,7 +60,7 @@
           </tr>
           <tr>
             <th>날짜</th>
-            <td>{{ bregdate }}</td>
+            <td>{{ regdate }}</td>
           </tr>
           <tr>
             <th>내용</th>
@@ -92,11 +92,11 @@ export default {
   data() {
     return {
       uCheck: false,
-      bid: this.$route.query.bid,
-      uid: "",
+      board_id: this.$route.query.board_id,
+      user_id: "",
       title: "",
       nickname: "",
-      bregdate: "",
+      regdate: "",
       content: "",
       comments: [],
       form: "",
@@ -111,15 +111,15 @@ export default {
   methods: {
     //유저가 작성자인지 아닌지 확인합니다.
     userCheck() {
-      if (this.$store.state.uid == this.uid) {
+      if (this.$store.state.user_id == this.user_id) {
         this.uCheck = true;
       }
     },
 
     getOneBoard() {
       this.$http
-        .get("http://127.0.0.1:8080/board/" + this.bid, {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+        .get("http://127.0.0.1:8080/board/" + this.board_id, {
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
@@ -127,15 +127,15 @@ export default {
           if (res.data.board) {
             this.title = res.data.board.title;
             this.nickname = res.data.board.nickname;
-            this.bregdate = res.data.board.bregdate;
+            this.regdate = res.data.board.regdate;
             this.content = res.data.board.content.replace(/(\n)/g, "<br/>");
-            this.uid = res.data.board.uid;
+            this.user_id = res.data.board.user_id;
           } else {
             this.title = res.data.title;
             this.nickname = res.data.nickname;
-            this.bregdate = res.data.bregdate;
+            this.regdate = res.data.regdate;
             this.content = res.data.content.replace(/(\n)/g, "<br/>");
-            this.uid = res.data.user.uid;
+            this.user_id = res.data.user.user_id;
           }
           this.userCheck();
         })
@@ -152,8 +152,8 @@ export default {
 
     getComments() {
       this.$http
-        .get("http://127.0.0.1:8080/comment/" + this.bid, {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+        .get("http://127.0.0.1:8080/comment/" + this.board_id, {
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           console.log(res.data);
@@ -178,11 +178,11 @@ export default {
         title: this.title,
         nickname: this.nickname,
         content: this.content,
-        bregdate: this.bregdate,
+        regdate: this.regdate,
       };
       this.$http
-        .patch("http://127.0.0.1:8080/board/" + this.bid, this.form, {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+        .patch("http://127.0.0.1:8080/board/" + this.board_id, this.form, {
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
@@ -201,8 +201,8 @@ export default {
     boardDelete() {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete("http://127.0.0.1:8080/board/" + this.bid, {
-            headers: { Authorization: "Bearer " + this.$store.state.token },
+          .delete("http://127.0.0.1:8080/board/" + this.board_id, {
+            headers: { Authorization: this.$store.state.token },
           })
           .then((res) => {
             if (res.status == 200) {

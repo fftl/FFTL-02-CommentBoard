@@ -1,5 +1,7 @@
 package fftl.fftl02backSpring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import fftl.fftl02backSpring.request.SaveBoardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +26,7 @@ public class Board {
     private String title;
     private String content;
     private String nickname;
-    private String bregdate;
+    private String regdate;
 
     @ManyToOne
     @JoinColumn(name="user_id")

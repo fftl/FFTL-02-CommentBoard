@@ -31,7 +31,7 @@ export default {
     return {
       nickname: "",
       comment: "",
-      bid: this.$route.query.bid,
+      board_id: this.$route.query.board_id,
       form: "",
     };
   },
@@ -46,18 +46,18 @@ export default {
       this.form = {
         nickname: this.nickname,
         comment: this.comment,
-        cregdate: cregdate,
-        uid: this.$store.state.uid,
-        bid: this.$route.query.bid,
+        regdate: cregdate,
+        user_id: this.$store.state.user_id,
+        board_id: this.$route.query.board_id,
       };
       this.$http
         .post("http://127.0.0.1:8080/comment/", this.form, {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
           alert("댓글이 등록되었습니다.");
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -68,7 +68,7 @@ export default {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
           .delete("http://127.0.0.1:8080/comment/" + cid, {
-            headers: { Authorization: "Bearer " + this.$store.state.token },
+            headers: { Authorization: this.$store.state.token },
           })
           .then((res) => {
             if (res.status == 200) {

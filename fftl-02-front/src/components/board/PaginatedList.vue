@@ -7,13 +7,13 @@
         <th>TITLE</th>
         <th>REGDATE</th>
       </tr>
-      <tr v-for="p in paginatedData" :key="p.bid">
-        <td>{{ p.bid }}</td>
+      <tr v-for="p in paginatedData" :key="p.id">
+        <td>{{ p.id }}</td>
         <td>{{ p.nickname }}</td>
         <td>
-          <a href="javascript:;" @click="goUpdate(`${p.bid}`)">{{ p.title }}</a>
+          <a href="javascript:;" @click="goUpdate(`${p.id}`)">{{ p.title }}</a>
         </td>
-        <td>{{ p.bregdate }}</td>
+        <td>{{ p.regdate }}</td>
       </tr>
     </table>
     <div class="btn-cover">
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       pageNum: 0,
-      bid: "",
+      board_id: "",
     };
   },
   props: {
@@ -60,8 +60,11 @@ export default {
       this.pageNum -= 1;
     },
     goUpdate(num) {
-      this.bid = num;
-      this.$router.push({ path: "/board/view/", query: { bid: this.bid } }); //추가한 상세페이지 라우터
+      this.board_id = num;
+      this.$router.push({
+        path: "/board/view/",
+        query: { board_id: this.board_id },
+      }); //추가한 상세페이지 라우터
     },
   },
   computed: {
@@ -69,6 +72,8 @@ export default {
       let listLeng = this.listArray.length,
         listSize = this.pageSize,
         page = Math.floor(listLeng / listSize);
+
+      console.log(this.listArray);
       if (listLeng % listSize > 0) page += 1;
 
       /*
@@ -78,6 +83,7 @@ export default {
       return page;
     },
     paginatedData() {
+      console.log(this.listArray.target);
       const start = this.pageNum * this.pageSize,
         end = start + this.pageSize;
       return this.listArray.slice(start, end);

@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/board")
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins="*")
 public class BoardController {
 
     private final BoardService boardService;
 
     @GetMapping("")
     public ResponseEntity getAllBoard(){
-        System.out.println("getAllBoard");
         List<Board> boards= boardService.getAllBoard();
         return new ResponseEntity(DefaultResponse.response(StatusCode.OK, ResponseMessage.READ_USER, boards), HttpStatus.OK);
     }
@@ -32,19 +31,19 @@ public class BoardController {
         return new ResponseEntity<>(new BasicResponse("true", "게시글 등록 성공"), HttpStatus.OK);
     }
 
-    @GetMapping("/{bid}")
+    @GetMapping("/{board_id}")
     public ResponseEntity<OneBoardResponse> getOneBoard(@PathVariable Long board_id){
         Board board = boardService.getOneBoard(board_id);
         return new ResponseEntity<>(new OneBoardResponse("true", "게시글 조회 성공", board), HttpStatus.OK);
     }
 
-    @PatchMapping("/{bid}")
+    @PatchMapping("/{board_id}")
     public ResponseEntity<BasicResponse> updateBoard(@RequestBody SaveBoardDto saveBoardDto, @PathVariable Long board_id){
         boardService.updateBoard(board_id, saveBoardDto);
         return new ResponseEntity<>(new BasicResponse("true", "게시글 수정 성공"), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{bid}")
+    @DeleteMapping("/{board_id}")
     public ResponseEntity<BasicResponse> deleteBoard(@PathVariable Long board_id){
         boardService.deleteBoard(board_id);
         return new ResponseEntity<>(new BasicResponse("true", "게시글 삭제 성공"), HttpStatus.OK);

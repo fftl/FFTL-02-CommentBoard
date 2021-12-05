@@ -21,8 +21,6 @@ export default {
   mounted() {
     this.loginCheck();
     this.getList();
-    // this.myInfo();
-    //
   },
   methods: {
     loginCheck() {
@@ -34,14 +32,15 @@ export default {
     getList() {
       this.$http
         .get("http://127.0.0.1:8080/board/", {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           console.log(res);
           if (res.data.boards) {
             this.pageArray = res.data.boards;
           } else {
-            this.pageArray = res.data;
+            this.pageArray = res.data.data;
+            console.log(res.data);
           }
         })
         .then((err) => {
@@ -54,13 +53,12 @@ export default {
     myInfo() {
       this.$http
         .get("http://127.0.0.1:8080/user/profile", {
-          headers: { Authorization: "Bearer " + this.$store.state.token },
+          headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
           if (res.status == 200) {
-            console.log(res);
             this.$store.commit("setNickname", res.data.nickname);
-            this.$store.commit("setUid", res.data.uid);
+            this.$store.commit("setUser_id", res.data.user_id);
           }
         })
         .catch((err) => {

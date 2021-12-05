@@ -14,10 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @RequestMapping(value = "/user")
 @RestController
-@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
@@ -78,6 +78,7 @@ public class UserController {
     public ResponseEntity<MyInfoResponse> myInfo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+        System.out.println("profile : " + username);
         User user =  userService.findByUsername(username);
         String nickname = user.getNickname();
         Long user_id = user.getId();
