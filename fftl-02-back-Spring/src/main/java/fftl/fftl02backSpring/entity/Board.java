@@ -27,7 +27,7 @@ public class Board {
     private String regdate;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="users_id")
     private User user;
 
     @OneToMany(mappedBy = "board")

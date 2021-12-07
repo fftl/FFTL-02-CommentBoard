@@ -23,7 +23,7 @@ public class Comment {
     private String regdate;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="users_id")
     private User user;
 
     @ManyToOne
