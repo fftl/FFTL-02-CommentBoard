@@ -7,26 +7,19 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveUserDto{
+public class SaveUserRequest {
 
     private String username;
     private String password;
-    private String joinDate;
     private String nickname;
-
-    public SaveUserDto(String username, String password, String nickname) {
-        this.username = username;
-        this.password = password;
-        this.joinDate = "time";
-        this.nickname = nickname;
-    }
+    private String regdate;
 
     public User toEntity(){
         return User.builder()
                 .username(username)
                 .password(password)
-                .joinDate("time")
                 .nickname(nickname)
+                .joinDate(regdate)
                 .build();
     }
 }

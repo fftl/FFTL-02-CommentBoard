@@ -5,14 +5,12 @@ import fftl.fftl02backSpring.entity.Comment;
 import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.repository.CommentRepository;
 import fftl.fftl02backSpring.repository.UserRepository;
-import fftl.fftl02backSpring.request.SaveCommentDto;
+import fftl.fftl02backSpring.request.SaveCommentRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.realm.UserDatabaseRealm;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,17 +21,13 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public boolean saveComment(SaveCommentDto saveCommentDto){
+    public Comment saveComment(SaveCommentRequest saveCommentRequest){
 
-        saveCommentDto.setBoard(boardRepository.findById(saveCommentDto.getBoard_id()).orElse(null));
-        saveCommentDto.setUser(userRepository.findById(saveCommentDto.getUser_id()).orElse(null));
-        Comment comment = commentRepository.save(saveCommentDto.toEntity());
+        saveCommentRequest.setBoard(boardRepository.findById(saveCommentRequest.getBoard_id()).orElse(null));
+        saveCommentRequest.setUser(userRepository.findById(saveCommentRequest.getUser_id()).orElse(null));
+        Comment comment = commentRepository.save(saveCommentRequest.toEntity());
 
-        if(comment != null){
-            return true;
-        }
-
-        return false;
+        return comment;
     }
 
     public List<Comment> getAllComments(Long board_id){

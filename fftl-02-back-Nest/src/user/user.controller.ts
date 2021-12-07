@@ -21,10 +21,10 @@ export class UserController {
   ) {}
 
   @Post('/saveUser')
-  async saveUser(@Body() saveUserDto: SaveUserDto) {
+  async saveUser(@Body() saveUserRequest: SaveUserDto) {
     //bcrypt 적용
-    saveUserDto.password = await bcrypt.hash(saveUserDto.password, 10);
-    return this.useService.saveUser(saveUserDto);
+    saveUserRequest.password = await bcrypt.hash(saveUserRequest.password, 10);
+    return this.useService.saveUser(saveUserRequest);
   }
 
   @UseGuards(LocalAuthGuard)

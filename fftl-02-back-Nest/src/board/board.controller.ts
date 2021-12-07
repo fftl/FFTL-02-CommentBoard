@@ -14,8 +14,8 @@ export class BoardController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async saveBoard(@Body() saveBoardDto: SaveBoardDto) {
-    return this.boardService.saveBoard(saveBoardDto);
+  async saveBoard(@Body() saveBoardRequest: SaveBoardDto) {
+    return this.boardService.saveBoard(saveBoardRequest);
   }
 
   @UseGuards(JwtAuthGuard)

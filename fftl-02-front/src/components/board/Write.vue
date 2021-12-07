@@ -57,7 +57,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store.state.nickname);
     this.nickname = this.$store.state.nickname;
   },
   methods: {
@@ -86,13 +85,11 @@ export default {
       };
 
       this.$http
-        .post("http://127.0.0.1:8080/board", this.form, {
+        .post("https://fftl-02-back.herokuapp.com/board", this.form, {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
-          console.log(this.form);
-          if (res.status == 201 || res.status == 200) {
-            console.log(res);
+          if (res.data.success) {
             alert("등록되었습니다.");
             this.goList();
           } else {

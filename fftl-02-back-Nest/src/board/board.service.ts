@@ -14,14 +14,14 @@ export class BoardService {
     private readonly userService: UserService,
   ) {}
 
-  async saveBoard(saveBoardDto: SaveBoardDto) {
-    const user = this.userService.findOneByUid(saveBoardDto.uid);
+  async saveBoard(saveBoardRequest: SaveBoardDto) {
+    const user = this.userService.findOneByUid(saveBoardRequest.uid);
 
     const board = new Board(
-      saveBoardDto.title,
-      saveBoardDto.content,
-      saveBoardDto.nickname,
-      saveBoardDto.bregdate,
+      saveBoardRequest.title,
+      saveBoardRequest.content,
+      saveBoardRequest.nickname,
+      saveBoardRequest.bregdate,
       await user,
     );
 

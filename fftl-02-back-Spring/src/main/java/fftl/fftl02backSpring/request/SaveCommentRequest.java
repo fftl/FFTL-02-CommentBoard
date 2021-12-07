@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveCommentDto {
+public class SaveCommentRequest {
 
     private String nickname;
     private String comment;

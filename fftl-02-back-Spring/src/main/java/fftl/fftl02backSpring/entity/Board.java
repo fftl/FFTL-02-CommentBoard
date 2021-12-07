@@ -1,8 +1,6 @@
 package fftl.fftl02backSpring.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import fftl.fftl02backSpring.request.SaveBoardDto;
+import fftl.fftl02backSpring.request.SaveBoardRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,8 +17,8 @@ import java.util.List;
 @Entity
 public class Board {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -35,8 +33,8 @@ public class Board {
     @OneToMany(mappedBy = "board")
     List<Comment> comments = new ArrayList<>();
 
-    public void updateBoard(SaveBoardDto saveBoardDto){
-        this.title = saveBoardDto.getTitle();
-        this.content = saveBoardDto.getContent();
+    public void updateBoard(SaveBoardRequest saveBoardRequest){
+        this.title = saveBoardRequest.getTitle();
+        this.content = saveBoardRequest.getContent();
     }
 }

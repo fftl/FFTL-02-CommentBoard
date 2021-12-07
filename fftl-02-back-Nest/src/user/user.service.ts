@@ -11,8 +11,8 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async saveUser(saveUserDto: SaveUserDto) {
-    return await this.userRepository.save(saveUserDto);
+  async saveUser(saveUserRequest: SaveUserDto) {
+    return await this.userRepository.save(saveUserRequest);
   }
 
   async findOne(username: string): Promise<User> {

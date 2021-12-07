@@ -31,19 +31,15 @@ export default {
     },
     getList() {
       this.$http
-        .get("http://127.0.0.1:8080/board/", {
+        .get("https://fftl-02-back.herokuapp.com/board/", {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
-          console.log(res);
-          if (res.data.boards) {
-            this.pageArray = res.data.boards;
-          } else {
+          if (res.data.success) {
             this.pageArray = res.data.data;
-            console.log(res.data);
           }
         })
-        .then((err) => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -52,7 +48,7 @@ export default {
     },
     myInfo() {
       this.$http
-        .get("http://127.0.0.1:8080/user/profile", {
+        .get("https://fftl-02-back.herokuapp.com/user/profile", {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {

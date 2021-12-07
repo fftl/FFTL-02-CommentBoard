@@ -14,8 +14,8 @@ import javax.persistence.*;
 @Entity
 public class Comment {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nickname;

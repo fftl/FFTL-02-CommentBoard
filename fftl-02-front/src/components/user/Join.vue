@@ -55,6 +55,12 @@
 </template>
 
 <script>
+let today = new Date();
+let year = today.getFullYear(); // 년도
+let month = today.getMonth() + 1; // 월
+let date = today.getDate(); // 날짜
+
+let cregdate = year + "-" + month + "-" + date;
 export default {
   data() {
     //변수 생성
@@ -76,9 +82,12 @@ export default {
         alert("아이디를 입력해 주세요.");
       } else {
         this.$http
-          .post("http://127.0.0.1:8080/user/checkId?username=" + this.username)
+          .post(
+            "https://fftl-02-back.herokuapp.com/user/checkUsername?username=" +
+              this.username
+          )
           .then((res) => {
-            if (res.data.statusCode == 200) {
+            if (res.data.success) {
               confirm("사용할 수 있는 아이디입니다.");
               this.usernameCheck = true;
             } else {
@@ -95,10 +104,11 @@ export default {
       } else {
         this.$http
           .post(
-            "http://127.0.0.1:8080/user/checkNickname?nickname=" + this.nickname
+            "https://fftl-02-back.herokuapp.com/user/checkNickname?nickname=" +
+              this.nickname
           )
           .then((res) => {
-            if (res.data.statusCode == 200) {
+            if (res.data.success) {
               alert("사용할 수 있는 닉네임입니다.");
               this.nicknameCheck = true;
             } else {
@@ -110,8 +120,6 @@ export default {
     },
 
     checkForm() {
-      console.log("checkForm()");
-
       if (this.username == "" || this.username == null) {
         alert("아이디를 입력해 주세요.");
       } else if (!this.usernameCheck) {
@@ -137,14 +145,16 @@ export default {
           username: this.username,
           password: this.password,
           nickname: this.nickname,
+          regdate: cregdate,
         };
 
         this.$http
-          .post("http://127.0.0.1:8080/user/saveUser", this.form)
+          .post("https://fftl-02-back.herokuapp.com/user/saveUser", this.form)
           .then((res) => {
-            console.log(res);
-            alert("회원가입에 성공했습니다.");
-            this.goHome();
+            if (res.data.success) {
+              alert("회원가입에 성공했습니다.");
+              this.goHome();
+            }
           })
           .catch((err) => {
             alert(err);

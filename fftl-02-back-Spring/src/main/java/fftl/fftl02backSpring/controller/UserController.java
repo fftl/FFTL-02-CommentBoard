@@ -1,20 +1,18 @@
 package fftl.fftl02backSpring.controller;
 
-import fftl.fftl02backSpring.advice.errors.SameDataExists;
+import fftl.fftl02backSpring.advice.exciptions.BadRequest;
 import fftl.fftl02backSpring.config.security.JwtTokenProvider;
+import fftl.fftl02backSpring.dto.UserDto;
 import fftl.fftl02backSpring.entity.User;
-import fftl.fftl02backSpring.request.LoginUserDto;
-import fftl.fftl02backSpring.request.SaveUserDto;
+import fftl.fftl02backSpring.request.LoginUserRequset;
+import fftl.fftl02backSpring.request.SaveUserRequest;
 import fftl.fftl02backSpring.response.*;
 import fftl.fftl02backSpring.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @RequestMapping(value = "/user")
 @RestController
@@ -23,68 +21,70 @@ public class UserController {
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
+    //user 생성
     @PostMapping("/saveUser")
-    public ResponseEntity<BasicResponse> join(@RequestBody SaveUserDto saveUserDto){
-        if (userService.saveUser(saveUserDto)){
-            return new ResponseEntity<>(new BasicResponse("success", "회원가입에 성공하였습니다."), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(new BasicResponse("false", "회원가입에 실패하였습니다."), HttpStatus.OK);
+    public Response saveUser(@RequestBody SaveUserRequest saveUserRequest){
+        User user = userService.saveUser(saveUserRequest);
+        UserDto userDto = UserDto.builder()
+                .user_id(user.getId())
+                .username(user.getUsername())
+                .nickname(user.getNickname())
+                .build();
+
+        return new Response(true, null, userDto);
     }
 
-    @PostMapping("/checkId")
-    public ResponseEntity checkId(@RequestParam String username){
-        System.out.println("function start : " + username);
+    //username 중복확인
+    @PostMapping("/checkUsername")
+    public Response checkUsername(@RequestParam String username){
 
+        //이미 존재하는 유저가 있다면
         if(userService.findByUsername(username) != null){
-            System.out.println("if in");
-            throw new SameDataExists(ResponseMessage.SAME_ID);
+            throw new BadRequest(ResponseMessage.SAME_ID);
         }
-        System.out.println("if out");
 
-        return new ResponseEntity(DefaultResponse.response(StatusCode.OK, ResponseMessage.SUCCESS), HttpStatus.OK);
+        return new Response(true, null, true);
     }
 
+    //nickname 중복확인
     @PostMapping("/checkNickname")
-    public ResponseEntity checkNickname(@RequestParam String nickname){
-        System.out.println("function start : " + nickname);
+    public Response checkNickname(@RequestParam String nickname){
 
         if(userService.findByNickname(nickname) != null){
-            System.out.println("if in");
-            throw new SameDataExists(ResponseMessage.SAME_NICKNAME);
+            throw new BadRequest(ResponseMessage.SAME_NICKNAME);
         }
-        System.out.println("if out");
 
-        return new ResponseEntity(DefaultResponse.response(StatusCode.OK, ResponseMessage.SUCCESS), HttpStatus.OK);
+        return new Response(true, null, true);
     }
 
+    //로그인
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginUserDto loginUserDto){
-        User user = userService.findByUsername(loginUserDto.getUsername());
-        System.out.println(loginUserDto.getUsername());
-        System.out.println(loginUserDto.getPassword());
-        if(user != null) {
-            if (!user.getPassword().equals(loginUserDto.getPassword())) {
-                throw new RuntimeException();
-            }
+    public Response login(@RequestBody LoginUserRequset loginUserRequset){
+        User user = userService.findByUsername(loginUserRequset.getUsername());
+
+        //비밀번호가 다를 경우
+        if (!user.getPassword().equals(loginUserRequset.getPassword())) {
+            throw new BadRequest("아이디 또는 비밀번호가 올바르지 않습니다.");
         }
 
         String access_token = jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
-        System.out.println("point0 : " + access_token);
 
-        return new ResponseEntity<>(new LoginResponse("true", access_token), HttpStatus.OK);
+        return new Response(true, null, access_token);
     }
 
+    //로그인 유저 정보 가져오기
     @GetMapping("/profile")
-    public ResponseEntity<MyInfoResponse> myInfo(){
+    public Response myInfo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println("profile : " + username);
         User user =  userService.findByUsername(username);
-        String nickname = user.getNickname();
-        Long user_id = user.getId();
-        if(user == null){
-            throw new RuntimeException();
-        }
-        return new ResponseEntity<>(new MyInfoResponse("true", "정보를 가져옵니다.", user_id, username, nickname), HttpStatus.OK);
+
+        UserDto userDto = UserDto.builder()
+                .user_id(user.getId())
+                .username(user.getUsername())
+                .nickname(user.getNickname())
+                .build();
+
+        return new Response(true, null, userDto);
     }
 }

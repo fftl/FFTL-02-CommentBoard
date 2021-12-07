@@ -12,8 +12,8 @@ export class CommentController {
 
     @UseGuards(JwtAuthGuard)
     @Post()
-    async saveComment(@Body() saveCommentDto: SaveCommentDto){
-        return this.commentService.saveComment(saveCommentDto);
+    async saveComment(@Body() saveCommentRequest: SaveCommentDto){
+        return this.commentService.saveComment(saveCommentRequest);
     }
 
     @UseGuards(JwtAuthGuard)

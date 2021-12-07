@@ -72,8 +72,6 @@ export default {
       let listLeng = this.listArray.length,
         listSize = this.pageSize,
         page = Math.floor(listLeng / listSize);
-
-      console.log(this.listArray);
       if (listLeng % listSize > 0) page += 1;
 
       /*
@@ -83,7 +81,6 @@ export default {
       return page;
     },
     paginatedData() {
-      console.log(this.listArray.target);
       const start = this.pageNum * this.pageSize,
         end = start + this.pageSize;
       return this.listArray.slice(start, end);

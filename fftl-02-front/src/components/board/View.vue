@@ -118,24 +118,16 @@ export default {
 
     getOneBoard() {
       this.$http
-        .get("http://127.0.0.1:8080/board/" + this.board_id, {
+        .get("https://fftl-02-back.herokuapp.com/board/" + this.board_id, {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
-          console.log(res);
-
-          if (res.data.board) {
-            this.title = res.data.board.title;
-            this.nickname = res.data.board.nickname;
-            this.regdate = res.data.board.regdate;
-            this.content = res.data.board.content.replace(/(\n)/g, "<br/>");
-            this.user_id = res.data.board.user_id;
-          } else {
-            this.title = res.data.title;
-            this.nickname = res.data.nickname;
-            this.regdate = res.data.regdate;
-            this.content = res.data.content.replace(/(\n)/g, "<br/>");
-            this.user_id = res.data.user.user_id;
+          if (res.data.success) {
+            this.title = res.data.data.title;
+            this.nickname = res.data.data.nickname;
+            this.regdate = res.data.data.regdate;
+            this.content = res.data.data.content.replace(/(\n)/g, "<br/>");
+            this.user_id = res.data.data.id;
           }
           this.userCheck();
         })
@@ -145,22 +137,17 @@ export default {
     },
 
     goList() {
-      // delete this.body.num;
-      // this.$router.push({ path: "/board/list", query: this.body });
       this.$router.push({ path: "/board/list", query: this.body });
     },
 
     getComments() {
       this.$http
-        .get("http://127.0.0.1:8080/comment/" + this.board_id, {
+        .get("https://fftl-02-back.herokuapp.com/comment/" + this.board_id, {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
-          console.log(res.data);
-          if (res.data.comments) {
-            this.comments = res.data.comments;
-          } else {
-            this.comments = res.data;
+          if (res.data.success) {
+            this.comments = res.data.data;
           }
         })
         .catch((err) => {
@@ -181,11 +168,14 @@ export default {
         regdate: this.regdate,
       };
       this.$http
-        .patch("http://127.0.0.1:8080/board/" + this.board_id, this.form, {
-          headers: { Authorization: this.$store.state.token },
-        })
+        .patch(
+          "https://fftl-02-back.herokuapp.com/board/" + this.board_id,
+          this.form,
+          {
+            headers: { Authorization: this.$store.state.token },
+          }
+        )
         .then((res) => {
-          console.log(res);
           if (res.status == 200) {
             alert("수정되었습니다.");
             this.goList();
@@ -201,7 +191,7 @@ export default {
     boardDelete() {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete("http://127.0.0.1:8080/board/" + this.board_id, {
+          .delete("https://fftl-02-back.herokuapp.com/board/" + this.board_id, {
             headers: { Authorization: this.$store.state.token },
           })
           .then((res) => {

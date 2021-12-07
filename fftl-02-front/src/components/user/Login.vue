@@ -57,16 +57,11 @@ export default {
           username: this.username,
           password: this.password,
         };
-        console.log(this.form);
         this.$http
-          .post("http://127.0.0.1:8080/user/login", this.form)
+          .post("https://fftl-02-back.herokuapp.com/user/login", this.form)
           .then((res) => {
-            console.log(res);
-            if (
-              (res.status == 201 || res.status == 200) &&
-              res.data.success != "fail"
-            ) {
-              this.$store.commit("setToken", res.data.access_token);
+            if ((res.status == 201 || res.status == 200) && res.data.success) {
+              this.$store.commit("setToken", res.data.data);
               this.$store.commit("setLoginCheck", true);
               this.myInfo();
               this.golist();
@@ -74,7 +69,6 @@ export default {
               // 로그인 정보가 일치하지 않을 때!!
               alert("아이디나 비밀번호가 틀렸습니다. 확인해주세요.");
             }
-            // console.log(this.$store.state.token);
           })
           .catch((err) => {
             alert(err);
@@ -83,15 +77,13 @@ export default {
     },
     myInfo() {
       this.$http
-        .get("http://127.0.0.1:8080/user/profile", {
+        .get("https://fftl-02-back.herokuapp.com/user/profile", {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
-          console.log(res);
-          console.log(res);
-          if (res.status == 200) {
-            this.$store.commit("setNickname", res.data.nickname);
-            this.$store.commit("setUser_id", res.data.user_id);
+          if (res.data.success) {
+            this.$store.commit("setNickname", res.data.data.nickname);
+            this.$store.commit("setUser_id", res.data.data.user_id);
           }
         })
         .catch((err) => {

@@ -10,11 +10,12 @@
       /><button @click="addComment">입력</button>
     </p>
     <table class="comments">
-      <tr v-for="c in comments" :key="c.cid">
+      <tr v-for="c in comments" :key="c.id">
         <td class="nickname">{{ c.nickname }}</td>
         <td class="comment">{{ c.comment }}</td>
-        <td class="cregdate">{{ c.cregdate }}</td>
-        <td><a @click="deleteComment(c.cid)" class="deleteComment">X</a></td>
+        <td v-if="userCheck(c.user_id)">
+          <a @click="deleteComment(c.id)" class="deleteComment">X</a>
+        </td>
       </tr>
     </table>
   </div>
@@ -29,19 +30,28 @@ let cregdate = year + "-" + month + "-" + date;
 export default {
   data() {
     return {
+      user_id: this.$store.state.user_id,
       nickname: "",
       comment: "",
       board_id: this.$route.query.board_id,
       form: "",
     };
   },
+
   mounted() {
     this.nickname = this.$store.state.nickname;
   },
+
   props: {
     commentsArray: Array,
   },
+
   methods: {
+    userCheck(user_id) {
+      if (user_id == this.user_id) {
+        return true;
+      }
+    },
     addComment() {
       this.form = {
         nickname: this.nickname,
@@ -50,28 +60,30 @@ export default {
         user_id: this.$store.state.user_id,
         board_id: this.$route.query.board_id,
       };
+
       this.$http
-        .post("http://127.0.0.1:8080/comment/", this.form, {
+        .post("https://fftl-02-back.herokuapp.com/comment/", this.form, {
           headers: { Authorization: this.$store.state.token },
         })
         .then((res) => {
-          console.log(res);
-          alert("댓글이 등록되었습니다.");
-          // window.location.reload();
+          if (res.data.success) {
+            alert("댓글이 등록되었습니다.");
+            window.location.reload();
+          }
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
-    deleteComment(cid) {
+    deleteComment(id) {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$http
-          .delete("http://127.0.0.1:8080/comment/" + cid, {
+          .delete("https://fftl-02-back.herokuapp.com/comment/" + id, {
             headers: { Authorization: this.$store.state.token },
           })
           .then((res) => {
-            if (res.status == 200) {
+            if (res.data.success) {
               alert("삭제되었습니다.");
               window.location.reload();
             } else {

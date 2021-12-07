@@ -3,7 +3,7 @@ package fftl.fftl02backSpring.service;
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.repository.UserRepository;
-import fftl.fftl02backSpring.request.SaveBoardDto;
+import fftl.fftl02backSpring.request.SaveBoardRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,17 +28,17 @@ public class BoardService {
     }
 
     @Transactional
-    public Board saveBoard(SaveBoardDto saveBoardDto){
-        saveBoardDto.setUser(userRepository.findById(saveBoardDto.getUser_id()).orElse(null));
-        Board board = saveBoardDto.toEntity();
+    public Board saveBoard(SaveBoardRequest saveBoardRequest){
+        saveBoardRequest.setUser(userRepository.findById(saveBoardRequest.getUser_id()).orElse(null));
+        Board board = saveBoardRequest.toEntity();
         return boardRepository.save(board);
     }
 
     @Transactional
-    public void updateBoard(Long board_id, SaveBoardDto saveBoardDto){
+    public Board updateBoard(Long board_id, SaveBoardRequest saveBoardRequest){
         Board board = boardRepository.getOne(board_id);
-        board.updateBoard(saveBoardDto);
-        boardRepository.save(board);
+        board.updateBoard(saveBoardRequest);
+        return boardRepository.save(board);
     }
 
     @Transactional

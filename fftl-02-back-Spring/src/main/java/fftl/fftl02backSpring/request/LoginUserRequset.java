@@ -1,19 +1,16 @@
 package fftl.fftl02backSpring.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-public class LoginUserDto {
+public class LoginUserRequset {
 
     private String username;
     private String password;
-
-    public LoginUserDto(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 }

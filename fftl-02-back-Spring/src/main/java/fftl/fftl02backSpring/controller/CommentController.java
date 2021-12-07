@@ -1,18 +1,15 @@
 package fftl.fftl02backSpring.controller;
 
+import fftl.fftl02backSpring.dto.CommentDto;
 import fftl.fftl02backSpring.entity.Comment;
-import fftl.fftl02backSpring.request.SaveCommentDto;
-import fftl.fftl02backSpring.response.AllCommentsResponse;
-import fftl.fftl02backSpring.response.BasicResponse;
+import fftl.fftl02backSpring.request.SaveCommentRequest;
+import fftl.fftl02backSpring.response.Response;
 import fftl.fftl02backSpring.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @RequestMapping("/comment")
 @RequiredArgsConstructor
 @RestController
@@ -21,24 +18,41 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("")
-    public ResponseEntity<BasicResponse> addComment(@RequestBody SaveCommentDto saveCommentDto){
-        if(!commentService.saveComment(saveCommentDto)){
-            throw new RuntimeException();
-        }
-        return new ResponseEntity<>(new BasicResponse("true", "댓글 작성에 성공하였습니다."), HttpStatus.OK);
+    public Response addComment(@RequestBody SaveCommentRequest saveCommentRequest){
+        Comment comment = commentService.saveComment(saveCommentRequest);
+        CommentDto commentDto = CommentDto.builder()
+                .id(comment.getId())
+                .comment(comment.getComment())
+                .nickname(comment.getNickname())
+                .regdate(comment.getRegdate())
+                .user_id(comment.getUser().getId())
+                .build();
+
+        return new Response(true, null, commentDto);
     }
 
     @GetMapping("/{board_id}")
-    public ResponseEntity<AllCommentsResponse> getAllComment(@PathVariable Long board_id){
+    public Response getAllComment(@PathVariable Long board_id){
         List<Comment> comments = commentService.getAllComments(board_id);
+        CommentDto[] commentDtos = new CommentDto[comments.size()];
+        for(int i=0; i<comments.size(); i++){
+            commentDtos[i] = CommentDto.builder()
+                    .id(comments.get(i).getId())
+                    .comment(comments.get(i).getComment())
+                    .nickname(comments.get(i).getNickname())
+                    .regdate(comments.get(i).getRegdate())
+                    .user_id(comments.get(i).getUser().getId())
+                    .build();
 
-        return new ResponseEntity<>(new AllCommentsResponse("true", "모든 댓글 가져오기 성공", comments), HttpStatus.OK);
+        }
+
+        return new Response(true, null, commentDtos);
     }
 
     @DeleteMapping("/{comment_id}")
-    public ResponseEntity<BasicResponse> deleteComment(@PathVariable Long comment_id){
+    public Response deleteComment(@PathVariable Long comment_id){
         commentService.deleteComment(comment_id);
-        return new ResponseEntity<>(new BasicResponse("true", "댓글 삭제하기 성공"), HttpStatus.OK);
+        return new Response(true, null, true);
     }
 
 }
