@@ -28,6 +28,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -98,16 +100,9 @@ class BoardControllerTest {
             .andDo(print());
     }
 
+    @DisplayName("게시글 생성하기 테스트")
     @Test
     void saveBoard() throws Exception{
-        given(userService.findByUserId(any())).willReturn(
-                User.builder()
-                    .id(1L)
-                    .username("user")
-                    .nickname("유저야")
-                    .password("1234")
-                    .build());
-
         given(boardService.saveBoard(any()))
             .willReturn(
                 Board.builder()
@@ -127,7 +122,7 @@ class BoardControllerTest {
 
         ResultActions actions =
             mvc.perform(
-                post("/user/saveUser")
+                post("/board")
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8")
@@ -139,15 +134,73 @@ class BoardControllerTest {
             .andDo(print());
     }
 
+    @DisplayName("게시글 수정하기 테스트")
     @Test
-    void updateBoard() {
+    void updateBoard() throws Exception{
+        given(boardService.updateBoard(any(),any()))
+            .willReturn(
+                Board.builder()
+                    .id(1L)
+                    .title("제목일까?")
+                    .content("내용일까?")
+                    .regdate("2021-12-10")
+                    .nickname("닉네임이야")
+                    .build());
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("title", "제목이야");
+        obj.addProperty("content", "내용이야");
+        obj.addProperty("nickname", "닉네임이야");
+        obj.addProperty("regdate", "2021-12-10");
+        obj.addProperty("user_id", 1L);
+
+        ResultActions actions =
+            mvc.perform(
+                patch("/board/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .characterEncoding("UTF-8")
+                    .content(String.valueOf(obj)));
+
+        actions.andDo(print());
     }
 
+    @DisplayName("삭제 테스트")
     @Test
-    void deleteBoard() {
+    void deleteBoard() throws Exception{
+
+        JsonObject obj = new JsonObject();
+        ResultActions actions =
+            mvc.perform(
+                delete("/board/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .characterEncoding("UTF-8"));
+
+        actions.andDo(print());
     }
 
+    @DisplayName("아이디로 게시글 조회 테스트")
     @Test
-    void getOneBoard() {
+    void getOneBoard() throws Exception{
+        given(boardService.getOneBoard(any()))
+            .willReturn(
+                Board.builder()
+                    .id(1L)
+                    .title("제목이야")
+                    .content("내용이야")
+                    .regdate("2021-12-10")
+                    .nickname("닉네임이야")
+                    .build());
+
+        ResultActions actions =
+            mvc.perform(
+                get("/board/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .characterEncoding("UTF-8"));
+
+        actions.andDo(print());
+
     }
 }
