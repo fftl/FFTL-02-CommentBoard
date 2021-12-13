@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import fftl.fftl02backSpring.advice.AdviceController;
 import fftl.fftl02backSpring.config.security.JwtTokenProvider;
 import fftl.fftl02backSpring.entity.Board;
-import fftl.fftl02backSpring.entity.User;
 import fftl.fftl02backSpring.service.BoardService;
 import fftl.fftl02backSpring.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BoardController.class)
 class BoardControllerTest {
 
-    List<Board> boards;
     @Autowired
     private MockMvc mvc;
 
@@ -49,6 +47,8 @@ class BoardControllerTest {
     @MockBean
     private JwtTokenProvider jwtTokenProvider;
 
+    List<Board> boards;
+
     @BeforeEach
     public void setUp() {
         mvc = MockMvcBuilders.standaloneSetup(
@@ -56,7 +56,6 @@ class BoardControllerTest {
             .addFilters(new CharacterEncodingFilter("UTF-8", true))// utf-8 필터 추가
             .setControllerAdvice(AdviceController.class) //실제 Cotroller에서 발생하는 exception을 해결
             .build();
-
 
         boards = new ArrayList<>();
         boards.add(Board
@@ -80,6 +79,7 @@ class BoardControllerTest {
             .comments(null)
             .build());
     }
+
 
     @DisplayName("게시글 전부 조회 테스트")
     @Test
@@ -168,8 +168,6 @@ class BoardControllerTest {
     @DisplayName("삭제 테스트")
     @Test
     void deleteBoard() throws Exception{
-
-        JsonObject obj = new JsonObject();
         ResultActions actions =
             mvc.perform(
                 delete("/board/1")
