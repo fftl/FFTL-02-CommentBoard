@@ -1,7 +1,6 @@
 package fftl.fftl02backSpring.advice;
 
 import fftl.fftl02backSpring.advice.exciptions.BadRequest;
-import fftl.fftl02backSpring.advice.exciptions.SameDataExists;
 import fftl.fftl02backSpring.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
