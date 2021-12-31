@@ -2,7 +2,7 @@
 
 ### 개요
 
-Vue.js를 이용한 프론트엔드와 Springboot를 이용해 진행한 프로젝트 입니다. Vue.js를 이용한 프론트엔드 서버와 Spring Boot 서버가 rest api로 데이터를 통신하여 실행되는 프로젝트입니다. Heroku를 이용해서 배포되고 있습니다. (https://fftl-02-front.herokuapp.com/)
+Vue.js를 이용한 클라이언트와 Springboot를 이용한 REST API서버로 실행되는 프로젝트 입니다. Heroku를 이용해서 배포되고 있습니다. Heroku의 특성상 처음 실행을 하여 요청을 할 때에 요청에 조금으 시간이 소요될 수 있습니다.(https://fftl-02-front.herokuapp.com/)
 
 ### 사용기술
 

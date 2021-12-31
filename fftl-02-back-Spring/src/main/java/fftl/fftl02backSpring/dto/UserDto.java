@@ -3,8 +3,8 @@ package fftl.fftl02backSpring.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
+@Builder
 public class UserDto {
 
     private Long user_id;
@@ -12,3 +12,4 @@ public class UserDto {
     private String nickname;
 
 }
+
