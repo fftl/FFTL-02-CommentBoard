@@ -1,120 +1,60 @@
 # CommentBoard <댓글 게시판 만들기>
 
-### 개요
+## 개요
 
-Vue.js를 이용한 클라이언트와 Springboot를 이용한 REST API서버로 실행되는 프로젝트 입니다. Heroku를 이용해서 배포되고 있습니다. Heroku의 특성상 처음 실행을 하여 요청을 할 때에 요청에 조금으 시간이 소요될 수 있습니다.(https://fftl-02-front.herokuapp.com/)
+로그인 기능과 문자로 이루어진 게시글 작성, 댓글 작성의 기능을 가지고 있는 게시판입니다. Vue.js를 이용한 클라이언트와 Springboot를 이용한 REST API서버로 실행되는 프로젝트 입니다. Heroku를 이용해서 배포되고 있습니다. Heroku의 특성상 처음 실행을 하여 요청을 할 때에 요청에 조금의 시간이 소요될 수 있습니다.(https://fftl-02-front.herokuapp.com/)
 
-### 사용기술
+## 사용기술
 
--   Java, Spring Boot, postgreSQL(heroku postgreSQL), JPA, gradle, git
+Java, Spring Boot, postgreSQL(heroku postgreSQL), JPA, gradle, git
 
-### DB설계
+## DB설계
 
-```java
+User, Board, Comment 세 개의 테이블만을 가진 작은 설계입니다. JPA를 사용하기 때문에 연관관계 맵핑을 사용하였고 연관관계를 맺은 각각은 서로의 id 값을 가진 것이 아니라 서로의 객체를 직접 가지고 있습니다.
 
-@Table(name="users")
-User {
+-   User
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    -   Long id
+    -   String username
+    -   String password
+    -   String joinDate
+    -   String nickname
 
-    private String username;
-    private String password;
-    private String joinDate;
-    private String nickname;
+    -   Board **boards**
+    -   Comment **comments**
 
-    @OneToMany(mappedBy = "user")
-    List<Board> boards = new ArrayList<>();
+-   Board
 
-    @OneToMany(mappedBy = "user")
-    List<Comment> comments = new ArrayList<>();
+    -   Long id
+    -   String title
+    -   String nickname
+    -   String regdate
 
-}
+    -   User **user**
+    -   Comment **comments**
 
-Board {
+-   Comment
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    -   Long id
+    -   String nickname
+    -   String comment
+    -   String regdate
 
-    private String title;
-    private String content;
-    private String nickname;
-    private String regdate;
+    -   **user**
+    -   **board**
 
-    @ManyToOne
-    @JoinColumn(name="users_id")
-    private User user;
+## 프로젝트 후기
 
-    @OneToMany(mappedBy = "board")
-    List<Comment> comments = new ArrayList<>();
-}
+### **연관관계 매핑**
 
-Comment {
+이전 까지는 JPA를 사용했지만 연관관계 맵핑을 하는 과정이 어렵기도 하고 각 Entity에 직접 foreign key를 집어 넣는 방법을 사용했었습니다. 이러한 방식은 연관된 테이블에 접근 할 때에 매번 foreign key를 이용해 조회를 하는 일을 해야하고, 이 일이 반복될 경우 무시할 수 없는 비용이 발생하기도 하고 객체지향적지 않기 때문에 연관관계 매핑에 대하여 학습을 하였고 적용해 보았습니다.
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+### **테스트코드 사용**
 
-    private String nickname;
-    private String comment;
-    private String regdate;
+이전 까지는 Spring으로 API를 만들 때에 직접 서버를 실행시키고 postman과 같은 api 테스트 프로그램을 이용하여 일일이 테스트를 진행했었습니다. 허나 계속해서 서버를 실행시키고 테스트하고 수정 하고를 반복하면서 굉장히 비 효율적임을 느끼고 있었지만 익숙한 방식임에 이를 놓지 못하고 있었습니다.
 
-    @ManyToOne
-    @JoinColumn(name="users_id")
-    private User user;
+허나 최근 책을 보고 공부를 진행하며 테스트 코드에 대한 중요성을 지속적으로 강조하는 많은 자료를 보게 되었고 Spring Boot test에 대해서 찾아보고, 적용해 보게 되었습니다. 이번 프로젝트에는 Controller를 테스트하는 테스트코드 만을 작성하였고 아직 미숙하지만 사용할 수 있게 된 것에 만족하는 기회였습니다.
 
-    @ManyToOne
-    @JoinColumn(name="board_id")
-    private Board board;
+### **Heroku를 통한 배포**
 
-}
-
-```
-
-### 진행사항
-
-    꽤 이전에 완성했다고 멈췄던 프로젝트였습니다. 하지만 이후에 살펴보니 많이 정리가 되지 않은 상태의 프로젝트였기에 수정해보는 것이 좋겠다는 생각이 들었고, 프로젝트를 수정하고 있습니다.
-
--   연관관계 매핑을 사용하지 않고 직접 외래키를 만드는 방식으로 DB를 설계했었는데 이번에 연관관계를 사용해 보았습니다.
-
--   heroku를 통해 client, server 모두 배포를 하였습니다. server를 배포하던 중 DB도 heroku에서 제공하는 postgreSQL을 사용했습니다. 이 과정에서 user table을 생성할 수 없다는 에러가 발생했었습니다. 원인은 postgreSQL에서는 user가 예약어로써 사용되고 있었기 때문에 테이블 이름을 users로 그리고 이와 연관관계를 맺는 user_id를 users_id로 변경해 주어서 해결하였습니다.
-
--   Server의 Response를 정리하였습니다. api 특성상 다양한 형태의 반환값이 필요합니다. 그 때마다 그에 맞는 dto를 생성해주는 방식으로 진행하다보니 너무나 지저분한 느낌이 들도록 파일이 많아졌습니다. 그래서 Generic을 통한 Response로 일관화를 진행하여 파일을 정리하였습니다.
-
--   연관관계 매핑을 진행하며 발생한 문제도 있었습니다. JPA에서 연관관계 매핑을 사용할 때 많이들 겪게되는 문제라는데 바로 JPA 양방향 무한 루프 였습니다. 간단히 보자면 양방향 연관관계를 맺는 entitiy를 Response에 entity 그대로 반환하게 될 경우 아래와 같은 무한루프가 발생하는 경우입니다. User 안에는 board가 있고 board 또한 user의 정보를 가지고 있기에 계속해서 반복되는 것입니다.
-
-    ```
-    user
-    {
-        "id" : 1,
-        "username" : "user",
-        "password" : "1234",
-        "board" : [
-            {
-                "title":"제목",
-                "content" : "내용입니다"
-                "user" : [
-                    {
-                        "id" : 1,
-                        "username" : "user",
-                        "password" : "1234",
-                        "board" : [
-                            {
-                                "title":"제목",
-                                "content" : "내용입니다"
-                                "user" : [
-                                            .
-                                            .
-                                            .
-                ]
-            }
-        ]
-
-    }
-    ```
-
-    이를 해결하기 위한 방법으로 Response를 할 떄에는 그에 맞는 Dto를 만들어 반환하는 방법과 Spring Boot에서 사용할 수 있는 어노테이션인 @JsonIdentityInfo를 사용하는 것입니다. 그 외에도 더 있는 것 같지만 저는 Dto를 사용하여 이를 해결해 내었습니다. 코드를 살펴 보시면 Service 단계에서 Entity를 반환하고 Controller 단계에서 마지막으로 Dto에 감싸서 Response하게 되는 모습을 볼 수 있습니다.
-
--   현재는 테스트 코드를 작업 중 입니다. 일단 Controller 테스트를 진행해 보았습니다. @WebMvcTest 를 이용하여 컨트롤러 부분을 테스트 클래스를 구성했고, MockMvc를 이용해서 요청을 확인하고 @MockBean를 이용해 @Service 단의 응답 값을 내보내주어 테스트가 성립되도록 구성해 보았습니다.
+개요에서 설면한 것 처럼 이 프로젝트는 Heroku라는 클라우드 PaaS를 이용하여 배포되고 있습니다. 이전에는 AWS를 이용하여 저의 프로젝트를 배포해 보기도 하였으나 AWS는 완전한 무료가 아니었기에 무료이며 더 간단하고 접근하기 좋았던 Heroku를 이용하여 Server, Client를 각각 배포해 보았습니다. 개인 프로젝트를 진행 할 때에는 매우 유용한 Platform 인 것 같습니다.
