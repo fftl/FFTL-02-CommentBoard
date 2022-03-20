@@ -12,42 +12,8 @@ Java, Spring Boot, postgreSQL(heroku postgreSQL), JPA, gradle, git
 
 User, Board, Comment 세 개의 테이블만을 가진 작은 설계입니다. JPA를 사용하기 때문에 연관관계 맵핑을 사용하였고 연관관계를 맺은 각각은 서로의 id 값을 가진 것이 아니라 서로의 객체를 직접 가지고 있습니다.
 
-```java
-User
+![comment_board_erd](https://user-images.githubusercontent.com/69035612/159158513-5142b15c-37c1-4ff7-ba4e-a58602dcabf6.png)
 
-Long id
-String username
-String password
-String joinDate
-String nickname
-Board **boards**
-Comment **comments**
-
-```
-
-```java
-Board
-
-Long id
-String title
-String nickname
-String regdate
-User **user**
-Comment **comments**
-
-```
-
-```java
-Comment
-
-Long id
-String nickname
-String comment
-String regdate
-**user**
-**board**
-
-```
 
 ## 프로젝트 후기
 

@@ -30,6 +30,7 @@ public class CommentService {
         return comment;
     }
 
+    @javax.transaction.Transactional
     public List<Comment> getAllComments(Long board_id){
         Board board = boardRepository.findById(board_id).get();
         return board.getComments();

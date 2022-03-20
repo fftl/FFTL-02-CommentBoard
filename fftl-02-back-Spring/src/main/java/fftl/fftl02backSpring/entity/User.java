@@ -24,13 +24,21 @@ import java.util.stream.Collectors;
 @Table(name="users")
 public class User implements UserDetails {
 
+    @Column(name = "users_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "users_username")
     private String username;
+
+    @Column(name = "users_password")
     private String password;
+
+    @Column(name = "users_joinDate")
     private String joinDate;
+
+    @Column(name = "users_nickname")
     private String nickname;
 
     @OneToMany(mappedBy = "user")

@@ -14,12 +14,18 @@ import javax.persistence.*;
 @Entity
 public class Comment {
 
+    @Column(name = "comment_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "comment_nickname")
     private String nickname;
+
+    @Column(name = "comment_comment")
     private String comment;
+
+    @Column(name = "comment_regdate")
     private String regdate;
 
     @ManyToOne
