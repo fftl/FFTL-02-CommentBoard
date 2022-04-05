@@ -1,4 +1,4 @@
-package fftl.fftl02backSpring.request;
+package fftl.fftl02backSpring.dto.request;
 
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.entity.Comment;

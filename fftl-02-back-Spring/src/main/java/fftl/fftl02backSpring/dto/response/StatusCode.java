@@ -1,4 +1,4 @@
-package fftl.fftl02backSpring.response;
+package fftl.fftl02backSpring.dto.response;
 
 public class StatusCode {
     public static final int OK = 200;

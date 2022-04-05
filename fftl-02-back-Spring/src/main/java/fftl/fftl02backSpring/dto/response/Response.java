@@ -1,4 +1,4 @@
-package fftl.fftl02backSpring.response;
+package fftl.fftl02backSpring.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

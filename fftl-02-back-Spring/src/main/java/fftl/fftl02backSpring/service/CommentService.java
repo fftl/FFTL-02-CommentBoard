@@ -5,13 +5,14 @@ import fftl.fftl02backSpring.entity.Comment;
 import fftl.fftl02backSpring.repository.BoardRepository;
 import fftl.fftl02backSpring.repository.CommentRepository;
 import fftl.fftl02backSpring.repository.UserRepository;
-import fftl.fftl02backSpring.request.SaveCommentRequest;
+import fftl.fftl02backSpring.dto.request.SaveCommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class CommentService {
@@ -30,7 +31,6 @@ public class CommentService {
         return comment;
     }
 
-    @javax.transaction.Transactional
     public List<Comment> getAllComments(Long board_id){
         Board board = boardRepository.findById(board_id).get();
         return board.getComments();

@@ -1,6 +1,6 @@
 package fftl.fftl02backSpring.entity;
 
-import fftl.fftl02backSpring.request.SaveBoardRequest;
+import fftl.fftl02backSpring.dto.request.SaveBoardRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

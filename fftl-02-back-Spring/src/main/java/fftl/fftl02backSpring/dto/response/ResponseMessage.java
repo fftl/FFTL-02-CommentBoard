@@ -1,4 +1,4 @@
-package fftl.fftl02backSpring.response;
+package fftl.fftl02backSpring.dto.response;
 
 public class ResponseMessage {
     public static final String SUCCESS = "성공";

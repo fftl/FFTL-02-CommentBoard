@@ -1,7 +1,7 @@
 package fftl.fftl02backSpring.advice;
 
 import fftl.fftl02backSpring.advice.exciptions.BadRequest;
-import fftl.fftl02backSpring.response.Response;
+import fftl.fftl02backSpring.dto.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;

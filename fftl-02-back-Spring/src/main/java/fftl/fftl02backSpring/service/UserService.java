@@ -2,11 +2,12 @@ package fftl.fftl02backSpring.service;
 
 import fftl.fftl02backSpring.entity.User;
 import fftl.fftl02backSpring.repository.UserRepository;
-import fftl.fftl02backSpring.request.SaveUserRequest;
+import fftl.fftl02backSpring.dto.request.SaveUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class UserService {

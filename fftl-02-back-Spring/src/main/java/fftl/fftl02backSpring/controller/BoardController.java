@@ -1,8 +1,9 @@
 package fftl.fftl02backSpring.controller;
 
 import fftl.fftl02backSpring.dto.BoardDto;
+import fftl.fftl02backSpring.dto.response.Response;
 import fftl.fftl02backSpring.entity.Board;
-import fftl.fftl02backSpring.request.SaveBoardRequest;
+import fftl.fftl02backSpring.dto.request.SaveBoardRequest;
 import fftl.fftl02backSpring.response.*;
 import fftl.fftl02backSpring.service.BoardService;
 import lombok.RequiredArgsConstructor;

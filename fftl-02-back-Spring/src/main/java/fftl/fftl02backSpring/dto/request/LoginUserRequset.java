@@ -1,4 +1,4 @@
-package fftl.fftl02backSpring.request;
+package fftl.fftl02backSpring.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

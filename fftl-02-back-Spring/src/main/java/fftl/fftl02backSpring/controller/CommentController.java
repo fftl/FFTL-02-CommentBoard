@@ -2,8 +2,8 @@ package fftl.fftl02backSpring.controller;
 
 import fftl.fftl02backSpring.dto.CommentDto;
 import fftl.fftl02backSpring.entity.Comment;
-import fftl.fftl02backSpring.request.SaveCommentRequest;
-import fftl.fftl02backSpring.response.Response;
+import fftl.fftl02backSpring.dto.request.SaveCommentRequest;
+import fftl.fftl02backSpring.dto.response.Response;
 import fftl.fftl02backSpring.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
