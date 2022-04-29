@@ -2,11 +2,9 @@ package fftl.fftl02backSpring.dto.request;
 
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

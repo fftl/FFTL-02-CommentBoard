@@ -4,7 +4,6 @@ import fftl.fftl02backSpring.dto.BoardDto;
 import fftl.fftl02backSpring.dto.response.Response;
 import fftl.fftl02backSpring.entity.Board;
 import fftl.fftl02backSpring.dto.request.SaveBoardRequest;
-import fftl.fftl02backSpring.response.*;
 import fftl.fftl02backSpring.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

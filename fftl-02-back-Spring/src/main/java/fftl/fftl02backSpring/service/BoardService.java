@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -37,9 +38,9 @@ public class BoardService {
 
     @Transactional
     public Board updateBoard(Long board_id, SaveBoardRequest saveBoardRequest){
-        Board board = boardRepository.getOne(board_id);
+        Board board = boardRepository.findById(board_id).get();
         board.updateBoard(saveBoardRequest);
-        return boardRepository.save(board);
+        return board;
     }
 
     @Transactional
